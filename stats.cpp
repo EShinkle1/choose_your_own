@@ -1,5 +1,6 @@
 #include "stats.hpp"
 #include "text_blocks.hpp"
+#include "backpack.hpp"
 #include <iostream>
 
 int Stats::getHealth() {
@@ -14,7 +15,7 @@ int Stats::getLuck() {
 int Stats::getDayNumber() {
     return day_number;
     }
-int Stats::getMilesJournied() {
+double Stats::getMilesJournied() {
     return miles_journied;
     }
 
@@ -39,8 +40,18 @@ void Stats::increaseLuck(int amount) {
 void Stats::increaseDayNumber(int amount) {
     day_number += amount;
     }
-void Stats::increaseMilesJournied(int amount) {
-    miles_journied += amount;
+void Stats::increaseMilesJournied(int amount, Backpack backpack) {
+    double multiplier = 1;
+    if (backpack.weight_status() == "light") {
+        multiplier = 1.2;
+    } 
+    else if (backpack.weight_status() == "heavy") {
+        multiplier = 0.8;
+    }
+    if (backpack.count_of_item("Walking stick") > 0) {
+        multiplier *= 1.1;
+    }
+    miles_journied += multiplier * amount;
     }
 
 void Stats::print_health_status() {

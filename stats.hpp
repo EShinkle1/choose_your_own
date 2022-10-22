@@ -8,19 +8,19 @@ private:
     int fullness = 99; //max 99
     int luck = 0; //0 is neutral 
     int day_number = 0;
-    int miles_journied = 0;
+    double miles_journied = 0;
 public:
     int getHealth();
     int getFullness();
     int getLuck();
     int getDayNumber();
-    int getMilesJournied();
+    double getMilesJournied();
     
     void increaseHealth(int amount);
     void increaseFullness(int amount);
     void increaseLuck(int amount);
     void increaseDayNumber(int amount);
-    void increaseMilesJournied(int amount);
+    void increaseMilesJournied(int amount, Backpack backpack);
 
     void print_health_status();
     void print_fullness_status();
