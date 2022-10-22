@@ -28,14 +28,14 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
         std::cout << "You proceed with your journey. You walk forward, left foot, right foot, left foot, right foot. Your eyelids feel heavy. You press ahead.\n\n";
         pause();
         std::cout << "You eventually stop and realize you've been walking for quite some time. You remember little from the walk and have no idea how much progress you've made. Maybe it's time for a break.\n\n";
-        stats.increaseMilesJournied(5 + (rand() % 10));
+        stats.increaseMilesJournied(5 + (rand() % 10), backpack);
         pause();
         return;
     }
 
     int idx = rand() % size;
-    //int event = tier[idx];
-    int event = 4;
+    int event = tier[idx];
+    //int event = 4;
 
     tier.erase(tier.begin()+idx);
     
@@ -74,10 +74,10 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
                 std::cout << "\n\n";
                 pause();
                 std::cout << "The terrain ahead is very easy. You cover a good distance. Finally after many hours of walking, you decide it's time for a break. \n\n";
-                stats.increaseMilesJournied(12);
+                stats.increaseMilesJournied(12, backpack);
             } else {
                 std::cout << "There is no time to waste. You keep moving. The terrain ahead is very easy. You cover a good distance. Finally after many hours of walking, you decide it's time for a break. \n\n";
-                stats.increaseMilesJournied(15);
+                stats.increaseMilesJournied(15, backpack);
             }
 
             pause();
@@ -108,7 +108,7 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
             if (response == 1) {
                 std::cout << "You continue forward. The woods start to thin, and you are able to move more quickly. You walk for several hours, enjoying the sounds of birds chirping and the beams of sunlight peaking through the forest canopy. As you stop to take a rest, you are reminded of the footpath you travelled along earlier. It's probably good that you didn't follow it any further -- who knows how long you could have been stuck following it.\n\n";
                 stats.increaseHealth(10);
-                stats.increaseMilesJournied(10);
+                stats.increaseMilesJournied(10, backpack);
             } else {
                 std::cout << "You continue to follow the footpath, curious as to where it may lead. You follow it for some time before it veers to the right again.\n\n";
                 pause();
@@ -129,11 +129,11 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
 
                 if (response == 1) {
                     std::cout << "You set down the sack of food and look around. There is dense forest in every direction. You head west once again, brushing branches and foliage out of your way as you go along. Eventually, the trees start to thin. This seems like a good place to rest.\n\n";
-                    stats.increaseMilesJournied(5);
+                    stats.increaseMilesJournied(5, backpack);
                 } else {
                     std::cout << "You grab the sack and step back from the structure. The forest is still. As you begin heading west again, a cold breeze whisks leaves off the trees around you. You shiver and clutch your pack a bit tighter as you continue through the woods. Eventually, the trees start to thin. This seems like a good place to rest.\n\n";
                     backpack.increase_item_count("Food (1 day)", 2);
-                    stats.increaseMilesJournied(5);
+                    stats.increaseMilesJournied(5, backpack);
                     stats.increaseLuck(-20);
                 }
             }
@@ -173,10 +173,10 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
                 std::cout << "After a while, you pause to take a break.\n\n";
                 pause();
                 stats.increaseHealth(-5);
-                stats.increaseMilesJournied(5);
+                stats.increaseMilesJournied(5, backpack);
             } else {
                 std::cout << "There is no time to waste. You keep moving. The terrain is very easy. You cover a good distance. Finally after many hours of walking, you decide it's time for a break. \n\n";
-                stats.increaseMilesJournied(15);
+                stats.increaseMilesJournied(15, backpack);
                 pause();
             }
             break;
@@ -223,7 +223,7 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
             }
             std::cout << "You see a patch of grass ahead. It looks like a good place to take a break.\n\n";
             pause();
-            stats.increaseMilesJournied(8);
+            stats.increaseMilesJournied(8, backpack);
             break;
         }
         /////////////////////////////////////////////////////////////////////////////////////////////
@@ -281,7 +281,7 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
                     pause();
                     std::cout << "This time you succeed! Upon reaching the flat ground spotted earlier, you collapse onto the dirt. You will need a break to recover.\n\n";
                     pause();
-                    stats.increaseMilesJournied(4);
+                    stats.increaseMilesJournied(4, backpack);
                     stats.increaseHealth(-10);
                 }
                 else {
@@ -289,7 +289,7 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
                     pause();
                     std::cout << "Your eyes turn back forwards to a flat stretch ahead. You're able to get in a few more hours of walking before you stop for a break.\n\n";
                     pause();
-                    stats.increaseMilesJournied(8);
+                    stats.increaseMilesJournied(8, backpack);
                 }
             } 
             else {
@@ -344,7 +344,7 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
                     stats.increaseHealth(-6);
                     pause();
                 }
-                stats.increaseMilesJournied(4);
+                stats.increaseMilesJournied(4, backpack);
             }
             break;
         }

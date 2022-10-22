@@ -1,6 +1,8 @@
 #ifndef STATS_HPP
 #define STATS_HPP
 
+class Backpack;
+
 class Stats
 {
 private:
@@ -20,7 +22,7 @@ public:
     void increaseFullness(int amount);
     void increaseLuck(int amount);
     void increaseDayNumber(int amount);
-    void increaseMilesJournied(int amount, Backpack backpack);
+    void increaseMilesJournied(double amount, Backpack backpack);
 
     void print_health_status();
     void print_fullness_status();

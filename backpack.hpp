@@ -12,9 +12,14 @@ class Backpack
 {
 private:
     std::list<Item> items = { //capitalize first word only
-        Item("Food (1 day)", 3.5, 2),
-        Item ("Walking stick", 1, 4),
-        Item("Change of clothes", 2, 2)
+        Item("Food (1 day)", 0, 2.0),
+        Item("Makeshift tent", 0, 6.0),
+        Item("First aid kit", 0, 0.5),
+        Item("Change of clothes", 0, 2.0),
+        Item("Blanket", 0, 3.0),
+        Item("Healing potion", 0, 1.0),
+        Item("Good luck rock", 0, 3.0),
+        Item("Walking stick", 0, 3.0)
     };
 
 public:

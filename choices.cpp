@@ -101,7 +101,7 @@ void dinner(Stats &stats, Backpack &backpack) {
 
     check_in(stats, backpack, "night");
 
-    std::cout << "It is time to try to get some sleep.\n\n";
+    std::cout << "It is time to try to sleep.\n\n";
 
     //stats.print_fullness_status();
     int fullness = stats.getFullness();
@@ -121,13 +121,43 @@ void dinner(Stats &stats, Backpack &backpack) {
 }
 
 void bedtime(Stats &stats, Backpack &backpack) {
-    std::cout << "Bedtime.\n\n";
-    std::cout << "Further implementation needed.\n\n";
+    double sleep_quality = 0;
+    if (backpack.count_of_item("Makeshift tent") > 0) {
+        std::cout << "You set up your tent on a dry patch of ground. ";
+        sleep_quality += 0.5;
+        if (backpack.count_of_item("Blanket") > 0) {
+            std::cout << "You curl up in your blanket and hope for a good night of rest.\n\n";
+            sleep_quality += 0.2;
+        }
+    }
+    else if (backpack.count_of_item("Blanket") * backpack.count_of_item("Walking stick") > 0) {
+        std::cout << "You make a small shelter from use your blanket and walking stick.\n\n";
+        sleep_quality += 0.4;
+    }
+    else {
+        std::cout << "You sit with your back up against a tree and close your eyes.\n\n";
+    }
 
-    //See if player has tent in backpack
-    //Roll dice for nighttime conditions 
-    //Determine sleep quality
-    //Update health
+    pause();
+
+    double night_conditions = (rand() % 200 + stats.getLuck()) / 100.0 - 1;
+    stats.increaseHealth(10 * (sleep_quality + night_conditions));
+
+    if (night_conditions < -0.6) {
+        std::cout << "The night is cold and rainy. The ground beneath you is hard, cold, and damp.\n\n";
+    }
+    else if (night_conditions < -0.2) {
+        std::cout << "Strange noises haunt you during the night. You hope it's nothing more than the trees snickering to each other about your misfortune.\n\n";
+    }
+    else if (night_conditions < 0.2) {
+        std::cout << "The night passes slowly. You drift in and out of sleep.\n\n";
+    }
+    else if (night_conditions < 0.6) {
+        std::cout << "You sleep well, only waking a few times to the sound of branches rustling in the wind.\n\n";
+    }
+    else {
+        std::cout << "You fall right asleep and sleep soundly through the night.\n\n";
+    }
 
     stats.check_for_death();
     pause(false);

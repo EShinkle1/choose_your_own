@@ -33,9 +33,6 @@ int main() {
     stats.increaseFullness(-1 * (rand() % 100));
     stats.increaseHealth(-1 * (rand() % 100));
 
-    lunch(stats, backpack);
-    dinner(stats, backpack);
-
     // //YOU'RE READY TO BEGIN YOUR JOURNEY...
     // //write this text later
     // //Have the journey into the woods scripted, perhaps based on which route was chosen. 
@@ -43,14 +40,12 @@ int main() {
     // //begin their first event, if it starts with something like "You continue hiking...", it is
     // //still coherent.
 
-    // int i = 0;
+    int i = 0;
 
-    // while (i < 1) {
-    //     backpack.print_contents();
-    //     new_day(stats, backpack, events);
-    //     backpack.print_contents();
-    //     i++;
-    // }
+    while (i < 2) {
+        new_day(stats, backpack, events);
+        i++;
+    }
 
     return 0;
 }

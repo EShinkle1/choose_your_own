@@ -40,7 +40,7 @@ void Stats::increaseLuck(int amount) {
 void Stats::increaseDayNumber(int amount) {
     day_number += amount;
     }
-void Stats::increaseMilesJournied(int amount, Backpack backpack) {
+void Stats::increaseMilesJournied(double amount, Backpack backpack) {
     double multiplier = 1;
     if (backpack.weight_status() == "light") {
         multiplier = 1.2;

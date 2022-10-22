@@ -39,10 +39,10 @@ void new_day(Stats &stats, Backpack &backpack, Events &events) {
     day_header(stats);
 
     if (stats.getDayNumber() > 1) {
-        wake_up_text(stats);
+        std::cout << "The sun is rising. You pack up your things and set off.\n\n";
         stats.print_status();
         pause();
-        //check_in(stats, backpack, "morning");
+        //check_in(stats, backpack, );
     }
 
     events.get_event(stats, backpack);
