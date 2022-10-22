@@ -34,6 +34,7 @@ int main() {
     stats.increaseHealth(-1 * (rand() % 100));
 
     lunch(stats, backpack);
+    dinner(stats, backpack);
 
     // //YOU'RE READY TO BEGIN YOUR JOURNEY...
     // //write this text later

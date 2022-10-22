@@ -60,15 +60,14 @@ std::string Backpack::weight_status() {
 }
 
 void Backpack::print_contents(std::map<std::string, int> items_to_numbers_map) {
-    std::vector<char> letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'};
     std::cout << "Backpack contents:\n";
     int i = 0;
     std::list<Item>::iterator it;
     for (it = items.begin(); it != items.end(); it++) {
         if (it->getQuantity() > 0) {
             char letter;
-            if (items_to_numbers_map.size() == 0) {letter = letters[i];}
-            else {letter = letters[items_to_numbers_map.find(it->getName())->second];}
+            if (items_to_numbers_map.size() == 0) {letter = int_to_letter(i);}
+            else {letter = int_to_letter(items_to_numbers_map.find(it->getName())->second);}
             std::cout << letter << ". " << it->getName() << ", " << it->getQuantity() << ", " << it->getWeight() << " lbs/each\n";
             i++;
         }
@@ -110,9 +109,15 @@ void Backpack::drop_items() {
     int num_items = number_of_items();
     bool cont = true;
     while (cont) {
+        std::cout << "What would you like to drop?\n";
+        std::cout << "One unit of the item will be dropped.\n\n";
         print_contents(items_to_numbers_map);
-        std::cout << "Select an item to drop. "; 
-        char choice = input_checker_char(num_items);
+        std::cout << int_to_letter(num_items) << ". Cancel\n\n";
+        //std::cout << "Select an item to drop. "; 
+        char choice = input_checker_char(num_items+1);
+        if (letter_to_int(choice) == num_items) {
+            return;
+        }
         std::string item_name = numbers_to_items_map.find(letter_to_int(choice))->second;
         
         if (count_of_item(item_name) > 0) {

@@ -42,7 +42,7 @@ void new_day(Stats &stats, Backpack &backpack, Events &events) {
         wake_up_text(stats);
         stats.print_status();
         pause();
-        check_in(stats, backpack);
+        //check_in(stats, backpack, "morning");
     }
 
     events.get_event(stats, backpack);

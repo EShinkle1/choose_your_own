@@ -70,6 +70,11 @@ int letter_to_int(char letter) {
         }
 }
 
+char int_to_letter(int number) {
+    std::vector<char> letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'};
+    return letters[number];
+}
+
 void print_line(const char* sym, int length = -1, bool new_line = true){
     if (length == -1) {length = getWindowColumns();}
     for (int i=0; i < length; i++) {
@@ -87,9 +92,8 @@ void middle_dashes() {
 char input_checker_char(int num_options) {
     char choice;
     bool accepted = false;
-    std::vector<char> letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'};
     while (!accepted) {
-        std::cout << "Enter an option from A - " << letters[num_options - 1] << ": ";
+        std::cout << "Enter an option from A - " << int_to_letter(num_options - 1) << ": ";
         std::cin >> choice;
         //choice = std::getchar(); // >> choice;
         std::cin.ignore(100,'\n');

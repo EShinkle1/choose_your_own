@@ -20,14 +20,17 @@ int Stats::getMilesJournied() {
 
 void Stats::increaseHealth(int amount) {
     health += amount;
-    if (health > 100) {health = 100;}
-    if (health <= 0) {out_of_health();}
+    if (health > 99) {health = 99;}
+    if (health < 0) {health = 0;}
     }
 void Stats::increaseFullness(int amount) {
     fullness += amount;
-    if (fullness > 100) {
-        fullness = 100;
+    if (fullness > 99) {
+        fullness = 99;
         std::cout << "You are full. You cannot eat any more. ";
+    }
+    if (fullness < 0) {
+        fullness = 0;
     }
     }
 void Stats::increaseLuck(int amount) {
@@ -66,4 +69,10 @@ void Stats::print_fullness_status() {
 void Stats::print_status() {
     print_health_status();
     print_fullness_status();
+}
+
+void Stats::check_for_death() {
+    if (health == 0) {
+        death();
+    }
 }

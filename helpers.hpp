@@ -2,6 +2,7 @@
 #define HELPERS_HPP
 
 int letter_to_int(char letter);
+char int_to_letter(int number);
 char input_checker_char(int num_options);
 void print_line(const char* sym, int length = -1, bool new_line = true);
 void pause(bool dashes_following = true);

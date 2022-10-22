@@ -2,6 +2,6 @@
 #define TEXT_BLOCKS_HPP
 
 void print_intro();
-void out_of_health();
+void death();
 
 #endif

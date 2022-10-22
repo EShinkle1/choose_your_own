@@ -38,8 +38,6 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
     int event = 4;
 
     tier.erase(tier.begin()+idx);
-
-    std::vector<char> letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'};
     
     switch (event) {
         //Notes:
@@ -64,7 +62,7 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
 
             std::cout << "You have a choice to make.\n\n";
             for (int i = 0; i < choices.size(); i++) {
-                std::cout << "  " << letters[i] << ". " << choices[i] << "\n";
+                std::cout << "  " << int_to_letter(i) << ". " << choices[i] << "\n";
             }
             std::cout << "\n";
 
@@ -100,7 +98,7 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
 
             std::cout << "You have a choice to make.\n\n";
             for (int i = 0; i < choices.size(); i++) {
-                std::cout << "  " << letters[i] << ". " << choices[i] << "\n";
+                std::cout << "  " << int_to_letter(i) << ". " << choices[i] << "\n";
             }
             std::cout << "\n";
 
@@ -123,7 +121,7 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
 
                 std::cout << "You have a choice to make.\n\n";
                 for (int i = 0; i < choices.size(); i++) {
-                    std::cout << "  " << letters[i] << ". " << choices[i] << "\n";
+                    std::cout << "  " << int_to_letter(i) << ". " << choices[i] << "\n";
                 }
                 std::cout << "\n";
 
@@ -159,7 +157,7 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
 
             std::cout << "You have a choice to make.\n\n";
             for (int i = 0; i < choices.size(); i++) {
-                std::cout << "  " << letters[i] << ". " << choices[i] << "\n";
+                std::cout << "  " << int_to_letter(i) << ". " << choices[i] << "\n";
             }
             std::cout << "\n";
 
@@ -243,7 +241,7 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
 
             std::cout << "You have a choice to make.\n\n";
             for (int i = 0; i < choices.size(); i++) {
-                std::cout << "  " << letters[i] << ". " << choices[i] << "\n";
+                std::cout << "  " << int_to_letter(i) << ". " << choices[i] << "\n";
             }
             std::cout << "\n";
 
@@ -304,7 +302,7 @@ void Events::get_event(Stats &stats, Backpack &backpack) {
 
                 std::cout << "You have a choice to make.\n\n";
                 for (int i = 0; i < choices.size(); i++) {
-                    std::cout << "  " << letters[i] << ". " << choices[i] << "\n";
+                    std::cout << "  " << int_to_letter(i) << ". " << choices[i] << "\n";
                 }
                 std::cout << "\n";
 
