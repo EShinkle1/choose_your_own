@@ -6,9 +6,9 @@
 #include "helpers.hpp"
 
 void InitialStore::print_inventory_options() {
-        std::cout << "\nChoose equipment for your journey.\n\n";
+        std::cout << "Choose equipment for your journey.\n\n";
         std::cout << "   Item                             Weight       Quantity Available\n";
-        std::cout << "   ----------------------------------------------------------------\n";
+        std::cout << "-------------------------------------------------------------------\n";
         std::cout << "A. Food (1 day)                     2 lbs        unlimited\n";
         std::cout << "B. Makeshift tent                   6 lbs        " << counts[0] << "\n";
         std::cout << "C. First aid kit                    0.5 lbs      " << counts[1] << "\n";
@@ -18,10 +18,10 @@ void InitialStore::print_inventory_options() {
         std::cout << "G. Good luck rock                   3 lbs        " << counts[5] << "\n";
         std::cout << "H. Walking stick                    3 lbs        " << counts[6] << "\n\n";
         std::cout << "I. Finished packing\n";
-        std::cout << "J. Restart\n";
+        std::cout << "J. Restart\n\n";
 }
 
-bool InitialStore::take_item(char choice) {
+bool InitialStore::take_item(char choice, double quantity) {
     bool success = false;
     int i = letter_to_int(choice);
     if (i == 0) {
@@ -29,8 +29,13 @@ bool InitialStore::take_item(char choice) {
     } else {
         if (counts[i-1] < 1) {
             std::cout << "No more available.\n";
-        } else {
-            counts[i-1] -= 1;
+        } 
+        else if (counts[i-1] < quantity) {
+            std::cout << " available. No items added.\n\n";
+            pause();
+        }
+        else {
+            counts[i-1] -= quantity;
             success = true;
         }
     }
@@ -47,5 +52,10 @@ double InitialStore::item_weight(char choice) {
 }
 
 void InitialStore::reset() {
-    int counts[8] = {2, 4, 2, 2, 1, 1, 1, 1};
+    int new_counts[8] = {2, 4, 2, 2, 1, 1, 1, 1};
+    for (int i = 0; i < 8; i++) {
+        counts[i] = new_counts[i];
+    }
 }
+
+

@@ -3,28 +3,29 @@
 
 #include <iostream>
 #include <string>
+#include "item_actions.hpp"
+
+class Stats;
+class Backpack;
 
 class Item {
 private:
     std::string name;
-    int quantity;
+    double quantity;
     double weight;
-
-    // bool actionable = false;
+    double (*function)(Stats &stats, Backpack &backpack);
+    bool actionable;
 public:
-    Item(std::string new_name, int new_quantity, double new_weight);
+    Item(std::string new_name, double new_quantity, double new_weight, double (*new_function)(Stats &stats, Backpack &backpack), bool if_actionable = false);
     std::string getName();
-    int getQuantity();
+    double getQuantity();
     double getWeight();
     
-    void increaseQuantity(int amount);
+    void increaseQuantity(double amount);
+    void setQuantity(double amount);
 
-    // bool is_actionable();
-    // void setActionable(bool value);
-
-    // void (*dotakeAction)(Item*);
-    // void takeAction() { if (dotakeAction) dotakeAction(this); };
-    
+    bool is_actionable();
+    void takeAction(Stats &stats, Backpack &backpack);    
 };
 
 #endif

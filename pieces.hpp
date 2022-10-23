@@ -7,5 +7,6 @@ class Events;
 
 void day_header(Stats stats);
 void new_day(Stats &stats, Backpack &backpack, Events &events);
+void first_day(Stats &stats, Backpack &backpack, Events &events);
 
 #endif

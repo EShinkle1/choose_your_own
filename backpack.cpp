@@ -7,8 +7,9 @@
 #include "helpers.hpp"
 #include "initial_store.hpp"
 #include "backpack_item.hpp"
+#include "stats.hpp"
 
-int Backpack::count_of_item(std::string item_name) {
+double Backpack::count_of_item(std::string item_name) {
     std::list<Item>::iterator it;
     for (it = items.begin(); it != items.end(); it++) {
         if (it->getName() == item_name) {
@@ -29,13 +30,26 @@ int Backpack::number_of_items() {
     return count;
 }
 
-void Backpack::increase_item_count(std::string item_name, int quantity) {
+void Backpack::increase_item_count(std::string item_name, double quantity) {
     std::list<Item>::iterator it;
     for (it = items.begin(); it != items.end(); it++) {
         if (it->getName() == item_name) {
             it->increaseQuantity(quantity);
+            return;
         }
     }
+    std::cout << "WARNING: Item " << item_name << " not found!\n\n";
+}
+
+void Backpack::set_item_count(std::string item_name, double quantity) {
+    std::list<Item>::iterator it;
+    for (it = items.begin(); it != items.end(); it++) {
+        if (it->getName() == item_name) {
+            it->setQuantity(quantity);
+            return;
+        }
+    }
+    std::cout << "WARNING: Item " << item_name << " not found!\n\n";
 }
 
 double Backpack::weight() {
@@ -59,12 +73,12 @@ std::string Backpack::weight_status() {
     }
 }
 
-void Backpack::print_contents(std::map<std::string, int> items_to_numbers_map) {
+void Backpack::print_contents(std::map<std::string, int> items_to_numbers_map, bool actionable_only) {
     std::cout << "Backpack contents:\n";
     int i = 0;
     std::list<Item>::iterator it;
     for (it = items.begin(); it != items.end(); it++) {
-        if (it->getQuantity() > 0) {
+        if (it->getQuantity() > 0 && (!actionable_only || it->is_actionable())) {
             char letter;
             if (items_to_numbers_map.size() == 0) {letter = int_to_letter(i);}
             else {letter = int_to_letter(items_to_numbers_map.find(it->getName())->second);}
@@ -73,16 +87,16 @@ void Backpack::print_contents(std::map<std::string, int> items_to_numbers_map) {
         }
     }
     std::cout << "\n";
-    std::cout << "Total weight: " << weight() << " lbs\n\n";
+    if (!actionable_only) {std::cout << "Total weight: " << weight() << " lbs\n\n";}
 
 }
 
-std::map<int, std::string> Backpack::map_numbers_to_items() {
+std::map<int, std::string> Backpack::map_numbers_to_items(bool actionable_only) {
     std::map<int, std::string> map;
     int i = 0;
     std::list<Item>::iterator it;
     for (it = items.begin(); it != items.end(); it++) {
-        if (it->getQuantity() > 0) {
+        if (it->getQuantity() > 0 && (!actionable_only || it->is_actionable())) {
             map.insert({i, it->getName()});
             i++;
         }
@@ -90,12 +104,12 @@ std::map<int, std::string> Backpack::map_numbers_to_items() {
     return map;
 }
 
-std::map<std::string, int> Backpack::map_items_to_numbers() {
+std::map<std::string, int> Backpack::map_items_to_numbers(bool actionable_only) {
     std::map<std::string, int> map;
     int i = 0;
     std::list<Item>::iterator it;
     for (it = items.begin(); it != items.end(); it++) {
-        if (it->getQuantity() > 0) {
+        if (it->getQuantity() > 0 && (!actionable_only || it->is_actionable())) {
             map.insert({it->getName(), i});
             i++;
         }
@@ -107,13 +121,11 @@ void Backpack::drop_items() {
     std::map<int, std::string> numbers_to_items_map = map_numbers_to_items();
     std::map<std::string, int> items_to_numbers_map = map_items_to_numbers();
     int num_items = number_of_items();
-    bool cont = true;
-    while (cont) {
+    while (true) {
         std::cout << "What would you like to drop?\n";
         std::cout << "One unit of the item will be dropped.\n\n";
         print_contents(items_to_numbers_map);
         std::cout << int_to_letter(num_items) << ". Cancel\n\n";
-        //std::cout << "Select an item to drop. "; 
         char choice = input_checker_char(num_items+1);
         if (letter_to_int(choice) == num_items) {
             return;
@@ -128,113 +140,125 @@ void Backpack::drop_items() {
             std::cout << "\nNone of item remaining.\n";
         }
 
-        std::cout << "\nWould you like to remove more items (Y or N)? ";
-        char response[80];
-        std::cin.getline(response, 80, '\n');
-        if (!(response[0] == 'Y' || response[0] == 'y')) {
-            cont = false;
-        }
-
         middle_dashes();
     }
     print_contents();
     pause();
 }
 
-void Backpack::initial_load() {
-    std::cout << "Not implemented\n";
-}
-
 void Backpack::reset() {
     std::list<Item>::iterator it;
     for (it = items.begin(); it != items.end(); it++) {
-        it->increaseQuantity(-1*it->getQuantity());
+        it->setQuantity(0);
     }
 }
 
-// void Backpack::drop_items() {
-// //     bool cont = true;
-// //     while (cont) {
-// //         print_contents();
-// //         std::cout << "\nSelect an item to drop. "; 
-// //         char choice = input_checker_char(number_of_item_types());
-// //         remove_item_by_number(letter_to_int(choice));
-// //         std::cout << "\nWould you like to remove more items (Y or N)? ";
-// //         char response;
-// //         std::cin >> response;
-// //         if (!(response == 'Y' || response == 'y')) {
-// //             cont = false;
-// //         }
-// //     }
-// };
+void Backpack::item_action(std::string item_name, Stats &stats, Backpack &backpack) {
+    std::list<Item>::iterator it;
+    for (it = items.begin(); it != items.end(); it++) {
+        if (it->getName() == item_name) {
+            it->takeAction(stats, backpack);
+            return;
+        }
+    }
+    std::cout << "WARNING: There is no item by the name of " << item_name << ".\n\n";
+}
 
-// double Backpack::weight() {
-//     return backpack_weight;
-// }
+void Backpack::select_item_for_action(Stats &stats, Backpack &backpack) {
+    std::map<int, std::string> numbers_to_items_map = map_numbers_to_items(true);
+    std::map<std::string, int> items_to_numbers_map = map_items_to_numbers(true);
+    int num_items = number_of_actionable_items();
+    while (true) {
+        std::cout << "What would you like to use?\n\n";
+        print_contents(items_to_numbers_map, true);
+        std::cout << int_to_letter(num_items) << ". Cancel\n\n";
+        char choice = input_checker_char(num_items+1);
+        if (letter_to_int(choice) == num_items) {
+            return;
+        }
+        std::string item_name = numbers_to_items_map.find(letter_to_int(choice))->second;
+        item_action(item_name, stats, backpack);
+    }
+}
 
-// int Backpack::number_of_item_types() {
-//     return item_counts.size();
-// }
+int Backpack::number_of_actionable_items() {
+    int count = 0;
+    std::list<Item>::iterator it;
+    for (it = items.begin(); it != items.end(); it++) {
+        if (it->getQuantity() > 0 && it->is_actionable() == true) {
+            count++;
+        }
+    }
+    return count;
+}
 
-// void Backpack::reset() {
-//     // item_counts = {};
-//     // item_weights = {};
-//     // backpack_weight = 0.0;
-// }
+void Backpack::initial_load() {
+    bool done = false;
 
-// void Backpack::initial_load() {
-//     // bool done = false;
+    InitialStore initial_store;
 
-//     // InitialStore initial_store;
+    while (!done) {
+        reset(); //resets backpack
+        initial_store.reset();
 
-//     // while (!done) {
-//     //     reset(); //resets backpack
-//     //     initial_store.reset();
+        bool cont = true;
 
-//     //     bool cont = true;
+        while (cont) {
+            initial_store.print_inventory_options();
+            char choice = input_checker_char(10);
+            if (choice == 'I') {
+                cont = false;
+                done = true;
+            } else if (choice == 'J') {
+                cont = false;
+                done = false;
+                std::cout << "Backpack reset.\n\n";
+                pause();
+            } else {
+                // std::cout << "\n";
+                // print_line("-", (getWindowColumns() - 6) / 2, false);
+                // std::cout << "RESULT";
+                //  print_line("-", (getWindowColumns() - 6) / 2, true);
+                std::cout << "How many would you like to add?\n\n";
+                double quantity = input_checker_positive_int();
+                if (initial_store.take_item(choice, quantity)) {
+                    increase_item_count(initial_store.item_name(choice), quantity);
+                    std::cout << "Item";
+                    if (quantity > 1) {std::cout << "s";}
+                    std::cout << " added to backpack.\n\n";
+                    pause();
+                    print_contents();
+                    pause();
+                }
+            }
+        }
+    }
 
-//     //     while (cont) {
-//     //         initial_store.print_inventory_options();
-//     //         char choice = input_checker_char(10);
-//     //         if (choice == 'I') {
-//     //             cont = false;
-//     //             done = true;
-//     //         } else if (choice == 'J') {
-//     //             cont = false;
-//     //             done = false;
-//     //         } else {
-//     //             std::cout << "\n--------------------------RESULT--------------------------\n";
-//     //             if (initial_store.take_item(choice)) {
-//     //                 add_item(initial_store.item_name(choice), 1, initial_store.item_weight(choice));
-//     //                 std::cout << "Item added to backpack. Current backpack weight is " << weight() << " lbs.\n";
-//     //             }
-//     //         }
-//     //     }
-//     // }
-
-//     // std::cout << "\nYou are ready to begin your journey! You lift your back pack. ";
-//     // if (weight() > 45) {
-//     //     std::cout << "You pull your backpack over your shoulders and take a step forward. You immediately fall over. This backpack is too heavy to continue.\n";
-//     //     drop_items();
-//     //     bool heavy = (weight() > 45);
-//     //     while (heavy) {
-//     //         std::cout << "\nThe backpack is still too heavy. Try to get to 45 lbs or less.\n";
-//     //         drop_items();
-//     //         heavy = (weight() > 45);
-//     //     }
-//     //     std::cout << "\nThat's better! You lift your backpack again. ";
-//     //     if (weight() <=15) {
-//     //         std::cout << "It is now quite light. You can move quickly through the forest.\n";
-//     //     } else if (weight() > 30) {
-//     //         std::cout << "It is still quite heavy but at least you can carry it now.\n";
-//     //     } else {
-//     //         std::cout << "\n";
-//     //     }
-//     // } else if (weight() <= 15) {
-//     //     std::cout << "It is light. You can move quickly through the forest.\n";
-//     // } else if (weight() <= 30) {
-//     //     std::cout << "\n";
-//     // } else {
-//     //     std::cout << "It is heavy. Your shoulders are already starting to feel sore.\n";
-//     // }
-// }
+    std::cout << "\nYou are ready to begin your journey! You lift your back pack. ";
+    if (weight() > 45) {
+        std::cout << "You pull your backpack over your shoulders and take a step forward. You immediately fall over. This backpack is too heavy to continue.\n";
+        drop_items();
+        bool heavy = (weight() > 45);
+        while (heavy) {
+            std::cout << "\nThe backpack is still too heavy. Try to get to 45 lbs or less.\n";
+            drop_items();
+            heavy = (weight() > 45);
+        }
+        std::cout << "\nThat's better! You lift your backpack again. ";
+        if (weight() <=15) {
+            std::cout << "It is now quite light. You can move quickly through the forest.\n";
+        } else if (weight() > 30) {
+            std::cout << "It is still quite heavy but at least you can carry it now.\n";
+        } else {
+            std::cout << "\n";
+        }
+    } else if (weight() <= 15) {
+        std::cout << "It is light. You can move quickly through the forest.\n";
+    } else if (weight() <= 30) {
+        std::cout << "\n";
+    } else {
+        std::cout << "It is heavy. Your shoulders are already starting to feel sore.\n";
+    }
+    std::cout << "\n";
+    pause(false);
+}

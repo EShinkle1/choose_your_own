@@ -20,27 +20,25 @@ int main() {
 
     declare_window_length();
 
-    // //print_intro();
+    //print_intro();
 
     Stats stats;
     Backpack backpack;
     Events events;
 
-    // // int route = choose_route(stats);
+    backpack.print_contents();
+
+    // // int route = choose_route(stats); //not implemented
 
     //backpack.initial_load();
 
-    stats.increaseFullness(-1 * (rand() % 100));
-    stats.increaseHealth(-1 * (rand() % 100));
+    // stats.increaseFullness(-1 * (rand() % 100));
+    // stats.increaseHealth(-1 * (rand() % 100));
 
-    // //YOU'RE READY TO BEGIN YOUR JOURNEY...
-    // //write this text later
-    // //Have the journey into the woods scripted, perhaps based on which route was chosen. 
-    // //Have the player take a pause to consider the journey ahead of them. This way, when they 
-    // //begin their first event, if it starts with something like "You continue hiking...", it is
-    // //still coherent.
 
-    int i = 0;
+    //first_day(stats, backpack, events);
+
+    int i = 1;
 
     while (i < 2) {
         new_day(stats, backpack, events);

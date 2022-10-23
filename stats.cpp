@@ -3,20 +3,24 @@
 #include "backpack.hpp"
 #include <iostream>
 
+class Backpack;
+
 int Stats::getHealth() {
     return health;
     }
 int Stats::getFullness() {
     return fullness;
     }
-int Stats::getLuck() {
-    return luck;
+int Stats::getLuck(Backpack backpack) {
+    int backpack_luck = 0;
+    if (backpack.count_of_item("Good luck rock")) {backpack_luck += 30;}
+    return luck + backpack_luck;
     }
 int Stats::getDayNumber() {
     return day_number;
     }
-double Stats::getMilesJournied() {
-    return miles_journied;
+double Stats::getMilesJourneyed() {
+    return miles_journeyed;
     }
 
 void Stats::increaseHealth(int amount) {
@@ -26,7 +30,7 @@ void Stats::increaseHealth(int amount) {
     }
 void Stats::increaseFullness(int amount) {
     fullness += amount;
-    if (fullness > 99) {
+    if (fullness >= 99) {
         fullness = 99;
         std::cout << "You are full. You cannot eat any more. ";
     }
@@ -40,7 +44,7 @@ void Stats::increaseLuck(int amount) {
 void Stats::increaseDayNumber(int amount) {
     day_number += amount;
     }
-void Stats::increaseMilesJournied(double amount, Backpack backpack) {
+void Stats::increaseMilesJourneyed(double amount, Backpack backpack) {
     double multiplier = 1;
     if (backpack.weight_status() == "light") {
         multiplier = 1.2;
@@ -51,7 +55,7 @@ void Stats::increaseMilesJournied(double amount, Backpack backpack) {
     if (backpack.count_of_item("Walking stick") > 0) {
         multiplier *= 1.1;
     }
-    miles_journied += multiplier * amount;
+    miles_journeyed += multiplier * amount;
     }
 
 void Stats::print_health_status() {
@@ -67,10 +71,10 @@ void Stats::print_health_status() {
 
 void Stats::print_fullness_status() {
     std::string fullness_status;
-    if (fullness < 10) {fullness_status = "Your hunger is excruciating. You feel light-headed and weak. It is hard to see straight.";} 
+    if (fullness < 10) {fullness_status = "Your hunger is excruciating. You feel light-headed and weak.";} 
     else if (fullness < 25) {fullness_status = "Your stomach aches. You don't know how much longer you can handle this.";}
-    else if (fullness < 50) {fullness_status = "You hear your stomach rumble. You should probably eat something soon.";}
-    else if (fullness < 75) {fullness_status = "Your stomach growls a bit. You put it out of your mind.";}
+    else if (fullness < 50) {fullness_status = "Your stomach is grumbling. You should probably eat something soon.";}
+    else if (fullness < 75) {fullness_status = "You are a bit hungry. Some food would be nice.";}
     else {fullness_status = "Your stomach feels content.";}
 
     // std::cout << "It is day " << day_number + 1 << " of your journey.\n";

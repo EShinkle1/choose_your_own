@@ -3,10 +3,12 @@
 #include "choices.hpp"
 #include "events.hpp"
 #include "helpers.hpp"
+#include "text_blocks.hpp"
 #include <iostream>
 
 void day_header(Stats stats) {
     int length = (getWindowColumns() - 5)/ 2;
+    std::cout << "\n";
     print_line("=");
     print_line(" ", length, false);
     std::cout << "DAY " << stats.getDayNumber() << "\n";
@@ -26,11 +28,29 @@ void wake_up_text(Stats &stats) {
             stats.increaseHealth(-10);
         }
     } else if (sleep_qual == 1) {
-        std::cout << "Your sleep was adaquate.\n\n";
+        std::cout << "Your sleep was adequate.\n\n";
     } else {
         std::cout << "You slept well last night.\n\n";
         stats.increaseHealth(10);
     }
+}
+
+void first_day(Stats &stats, Backpack &backpack, Events &events) {
+    stats.increaseDayNumber(1);
+
+    day_header(stats);
+
+    first_day_journey();
+    stats.increaseMilesJourneyed(10, backpack);
+
+    lunch(stats, backpack);
+
+    events.get_event(stats, backpack, "morning");
+
+    dinner(stats, backpack);
+
+    bedtime(stats, backpack);
+
 }
 
 void new_day(Stats &stats, Backpack &backpack, Events &events) {
@@ -38,25 +58,18 @@ void new_day(Stats &stats, Backpack &backpack, Events &events) {
 
     day_header(stats);
 
-    if (stats.getDayNumber() > 1) {
-        std::cout << "The sun is rising. You pack up your things and set off.\n\n";
-        stats.print_status();
-        pause();
-        //check_in(stats, backpack, );
-    }
+    std::cout << "The sun is rising. You pack up your things and set off.\n\n";
+    stats.print_status();
+    pause();
 
-    events.get_event(stats, backpack);
+    events.get_event(stats, backpack, "morning");
 
     lunch(stats, backpack);
 
-    events.get_event(stats, backpack);
+    events.get_event(stats, backpack, "afternoon");
 
     dinner(stats, backpack);
 
     bedtime(stats, backpack);
-    
-    
-
-
 
 }

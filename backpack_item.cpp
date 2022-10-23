@@ -1,17 +1,29 @@
 #include <iostream>
 #include "backpack_item.hpp"
+#include "stats.hpp"
+#include "backpack.hpp"
 
-Item::Item(std::string new_name, int new_quantity, double new_weight) {
+Item::Item(std::string new_name, double new_quantity, double new_weight, double (*new_function)(Stats &stats, Backpack &backpack), bool if_actionable) {
     name = new_name;
     quantity = new_quantity;
     weight = new_weight;
+    function = new_function;
+    actionable = if_actionable;
+}
+
+void Item::takeAction(Stats &stats, Backpack &backpack) {
+    if (quantity == 0) {
+        std::cout << "WARNING: None of the item " << name << " remains\n\n";
+        return;
+    }
+    quantity += function(stats, backpack);
 }
 
 std::string Item::getName() {
     return name;
 }
 
-int Item::getQuantity() {
+double Item::getQuantity() {
     return quantity;
 }
 
@@ -20,8 +32,14 @@ double Item::getWeight() {
 }
 
 
-void Item::increaseQuantity(int amount) {
+void Item::increaseQuantity(double amount) {
     quantity += amount;
+    if (quantity < 0) {quantity = 0;}
+}
+
+void Item::setQuantity(double amount) {
+    quantity = amount;
+    if (quantity < 0) {quantity = 0;}
 }
 
 
@@ -29,12 +47,7 @@ void Item::increaseQuantity(int amount) {
 //     return (quantity <= 0);
 // }
 
-// bool Item::is_actionable() {
-//     return actionable;
-// }
+bool Item::is_actionable() {
+    return actionable;
+}
 
-
-
-// void Item::setActionable(bool value) {
-//     actionable = value;
-// }

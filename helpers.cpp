@@ -115,3 +115,38 @@ void pause(bool dashes_following = true) {
     std::cout << "\n";
     if (dashes_following) {middle_dashes();}
 }
+
+bool isNumber(const std::string& s)
+{
+    for (char const &ch : s) {
+        if (std::isdigit(ch) == 0)
+            return false;
+    }
+    return true;
+}
+
+int input_checker_positive_int() {
+    std::string choice;
+    bool accepted = false;
+    int choice_int;
+    while (!accepted) {
+        std::cout << "Enter a positive integer: ";
+        std::cin >> choice;
+        //choice = std::getchar(); // >> choice;
+        std::cin.ignore(100,'\n');
+        if (isNumber(choice)) {
+            choice_int = std::stoi(choice);
+            if (choice_int > 0) {
+                accepted = true;
+            }
+            else {
+                std::cout << "Not a positive integer. Try again.\n";
+            }
+        } else {
+            std::cout << "Invalid input. Try again.\n";
+        }
+    }
+    std::cout << "\n";
+    middle_dashes();
+    return choice_int;
+}

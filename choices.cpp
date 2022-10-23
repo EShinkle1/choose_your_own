@@ -41,8 +41,7 @@ void check_in(Stats &stats, Backpack &backpack, std::string time) {
             backpack.drop_items();
         }
         else if (response == 2) {
-            std::cout << "Not yet implemented.\n\n";
-            pause();
+            backpack.select_item_for_action(stats, backpack);
         }
         else if (response == 3) {
             stats.print_health_status();
@@ -140,7 +139,7 @@ void bedtime(Stats &stats, Backpack &backpack) {
 
     pause();
 
-    double night_conditions = (rand() % 200 + stats.getLuck()) / 100.0 - 1;
+    double night_conditions = (rand() % 200 + stats.getLuck(backpack)) / 100.0 - 1;
     stats.increaseHealth(10 * (sleep_quality + night_conditions));
 
     if (night_conditions < -0.6) {
