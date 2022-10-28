@@ -9,95 +9,65 @@
 #include "backpack_item.hpp"
 #include "stats.hpp"
 
-double Backpack::count_of_item(std::string item_name) {
-    std::list<Item>::iterator it;
-    for (it = items.begin(); it != items.end(); it++) {
-        if (it->getName() == item_name) {
-            return it->getQuantity();
-        }
-    }
-    return 0;
+bool Backpack::item_present(std::string item_name) {
+    if (!(items.count(item_name))) {return false;}
+    if (items[item_name].getQuantity() <= 0) {return false;} 
+    return true;
 }
 
 int Backpack::number_of_items() {
     int count = 0;
-    std::list<Item>::iterator it;
-    for (it = items.begin(); it != items.end(); it++) {
-        if (it->getQuantity() > 0) {
-            count++;
+    for (auto it: items) {
+        if (it.second.getQuantity() > 0) {
+            count += 1;
         }
     }
     return count;
 }
 
-void Backpack::increase_item_count(std::string item_name, double quantity) {
-    std::list<Item>::iterator it;
-    for (it = items.begin(); it != items.end(); it++) {
-        if (it->getName() == item_name) {
-            it->increaseQuantity(quantity);
-            return;
+int Backpack::number_of_actionable_items() {
+    int count = 0;
+    for (auto item: items) {
+        if (item.second.getQuantity() > 0 && item.second.is_actionable()) {
+            count += 1;
         }
     }
-    std::cout << "WARNING: Item " << item_name << " not found!\n\n";
+    return count;
 }
 
-void Backpack::set_item_count(std::string item_name, double quantity) {
-    std::list<Item>::iterator it;
-    for (it = items.begin(); it != items.end(); it++) {
-        if (it->getName() == item_name) {
-            it->setQuantity(quantity);
-            return;
-        }
-    }
-    std::cout << "WARNING: Item " << item_name << " not found!\n\n";
+double Backpack::item_quantity(std::string item_name) {
+    if (!item_present(item_name)) {return 0;}
+    else {return items[item_name].getQuantity();}
 }
 
-double Backpack::weight() {
-    double weight = 0;
-    std::list<Item>::iterator it;
-    for (it = items.begin(); it != items.end(); it++) {
-        weight += it->getQuantity() * it->getWeight();
-    }
-    return weight;
-}
-
-std::string Backpack::weight_status() {
-    if (weight() < 15) {
-        return "light";
-    }
-    else if (weight() < 30) {
-        return "fine";
+void Backpack::increase_item_quantity(std::string item_name, double amount) {
+    if (!item_present(item_name)) {
+        std::cout << "WARNING: Item " << item_name << " not present.\n\n";
+        return;
     }
     else {
-        return "heavy";
-    }
+        items[item_name].increaseQuantity(amount);
+        return;
+    } 
 }
 
-void Backpack::print_contents(std::map<std::string, int> items_to_numbers_map, bool actionable_only) {
-    std::cout << "Backpack contents:\n";
-    int i = 0;
-    std::list<Item>::iterator it;
-    for (it = items.begin(); it != items.end(); it++) {
-        if (it->getQuantity() > 0 && (!actionable_only || it->is_actionable())) {
-            char letter;
-            if (items_to_numbers_map.size() == 0) {letter = int_to_letter(i);}
-            else {letter = int_to_letter(items_to_numbers_map.find(it->getName())->second);}
-            std::cout << letter << ". " << it->getName() << ", " << it->getQuantity() << ", " << it->getWeight() << " lbs/each\n";
-            i++;
-        }
+void Backpack::set_item_quantity(std::string item_name, double amount) {
+    if (!item_present(item_name)) {
+        std::cout << "WARNING: Item " << item_name << " not present.\n\n";
+        return;
     }
-    std::cout << "\n";
-    if (!actionable_only) {std::cout << "Total weight: " << weight() << " lbs\n\n";}
-
+    else {
+        items[item_name].setQuantity(amount);
+        return;
+    } 
 }
 
 std::map<int, std::string> Backpack::map_numbers_to_items(bool actionable_only) {
     std::map<int, std::string> map;
     int i = 0;
-    std::list<Item>::iterator it;
-    for (it = items.begin(); it != items.end(); it++) {
-        if (it->getQuantity() > 0 && (!actionable_only || it->is_actionable())) {
-            map.insert({i, it->getName()});
+    for (auto it: items) {
+        if (it.second.getQuantity() > 0 && (!actionable_only || it.second.is_actionable())) {
+            map.insert({i, it.second.getName()});
             i++;
         }
     }
@@ -107,14 +77,37 @@ std::map<int, std::string> Backpack::map_numbers_to_items(bool actionable_only) 
 std::map<std::string, int> Backpack::map_items_to_numbers(bool actionable_only) {
     std::map<std::string, int> map;
     int i = 0;
-    std::list<Item>::iterator it;
-    for (it = items.begin(); it != items.end(); it++) {
-        if (it->getQuantity() > 0 && (!actionable_only || it->is_actionable())) {
-            map.insert({it->getName(), i});
+    for (auto it: items) {
+        if (it.second.getQuantity() > 0 && (!actionable_only || it.second.is_actionable())) {
+            map.insert({it.second.getName(), i});
             i++;
         }
     }
     return map;
+}
+
+void Backpack::print_contents(std::map<std::string, int> items_to_numbers_map, bool actionable_only) {
+    std::cout << "Backpack contents:\n";
+    int i = 0;
+    for (auto it: items) {
+        if (it.second.getQuantity() > 0 && (!actionable_only || it.second.is_actionable())) {
+            char letter;
+            if (items_to_numbers_map.size() == 0) {letter = int_to_letter(i);}
+            else {letter = int_to_letter(items_to_numbers_map[it.second.getName()]);}
+            std::cout << letter << ". " << it.second.getName() << ", " << it.second.getQuantity() << ", " << it.second.getWeight() << " lbs/each\n";
+            i++;
+        }
+    std::cout << "\n";
+    if (!actionable_only) {std::cout << "Total weight: " << weight() << " lbs\n\n";}
+    }
+}
+
+double Backpack::weight() {
+    double amount = 0;
+    for (auto it: items) {
+        amount += it.second.getWeight() * it.second.getQuantity();
+    }
+    return amount;
 }
 
 void Backpack::drop_items() {
@@ -130,10 +123,10 @@ void Backpack::drop_items() {
         if (letter_to_int(choice) == num_items) {
             return;
         }
-        std::string item_name = numbers_to_items_map.find(letter_to_int(choice))->second;
+        std::string item_name = numbers_to_items_map[letter_to_int(choice)];
         
-        if (count_of_item(item_name) > 0) {
-            increase_item_count(item_name, -1);
+        if (item_present(item_name)) {
+            increase_item_quantity(item_name, -1);
             std::cout << "\nDropped 1 of item '" << item_name << "'\n";
         } 
         else {
@@ -146,50 +139,22 @@ void Backpack::drop_items() {
     pause();
 }
 
+std::string Backpack::weight_status() {
+    if (weight() < 15) {
+        return "light";
+    }
+    else if (weight() < 30) {
+        return "fine";
+    }
+    else {
+        return "heavy";
+    }
+}
+
 void Backpack::reset() {
-    std::list<Item>::iterator it;
-    for (it = items.begin(); it != items.end(); it++) {
-        it->setQuantity(0);
+    for (auto item: items) {
+        item.second.setQuantity(0);
     }
-}
-
-void Backpack::item_action(std::string item_name, Stats &stats, Backpack &backpack) {
-    std::list<Item>::iterator it;
-    for (it = items.begin(); it != items.end(); it++) {
-        if (it->getName() == item_name) {
-            it->takeAction(stats, backpack);
-            return;
-        }
-    }
-    std::cout << "WARNING: There is no item by the name of " << item_name << ".\n\n";
-}
-
-void Backpack::select_item_for_action(Stats &stats, Backpack &backpack) {
-    std::map<int, std::string> numbers_to_items_map = map_numbers_to_items(true);
-    std::map<std::string, int> items_to_numbers_map = map_items_to_numbers(true);
-    int num_items = number_of_actionable_items();
-    while (true) {
-        std::cout << "What would you like to use?\n\n";
-        print_contents(items_to_numbers_map, true);
-        std::cout << int_to_letter(num_items) << ". Cancel\n\n";
-        char choice = input_checker_char(num_items+1);
-        if (letter_to_int(choice) == num_items) {
-            return;
-        }
-        std::string item_name = numbers_to_items_map.find(letter_to_int(choice))->second;
-        item_action(item_name, stats, backpack);
-    }
-}
-
-int Backpack::number_of_actionable_items() {
-    int count = 0;
-    std::list<Item>::iterator it;
-    for (it = items.begin(); it != items.end(); it++) {
-        if (it->getQuantity() > 0 && it->is_actionable() == true) {
-            count++;
-        }
-    }
-    return count;
 }
 
 void Backpack::initial_load() {
@@ -222,7 +187,7 @@ void Backpack::initial_load() {
                 std::cout << "How many would you like to add?\n\n";
                 double quantity = input_checker_positive_int();
                 if (initial_store.take_item(choice, quantity)) {
-                    increase_item_count(initial_store.item_name(choice), quantity);
+                    increase_item_quantity(initial_store.item_name(choice), quantity);
                     std::cout << "Item";
                     if (quantity > 1) {std::cout << "s";}
                     std::cout << " added to backpack.\n\n";
@@ -261,4 +226,29 @@ void Backpack::initial_load() {
     }
     std::cout << "\n";
     pause(false);
+}
+
+void Backpack::item_action(std::string item_name, Stats &stats, Backpack &backpack) {
+    if (!item_present(item_name)) {
+        std::cout << "WARNING: There is no item by the name of " << item_name << ".\n\n";
+        return;
+    }
+    items[item_name].takeAction(stats, backpack);
+}
+
+void Backpack::select_item_for_action(Stats &stats, Backpack &backpack) {
+    std::map<int, std::string> numbers_to_items_map = map_numbers_to_items(true);
+    std::map<std::string, int> items_to_numbers_map = map_items_to_numbers(true);
+    int num_items = number_of_actionable_items();
+    while (true) {
+        std::cout << "What would you like to use?\n\n";
+        print_contents(items_to_numbers_map, true);
+        std::cout << int_to_letter(num_items) << ". Cancel\n\n";
+        char choice = input_checker_char(num_items+1);
+        if (letter_to_int(choice) == num_items) {
+            return;
+        }
+        std::string item_name = numbers_to_items_map.find(letter_to_int(choice))->second;
+        item_action(item_name, stats, backpack);
+    }
 }

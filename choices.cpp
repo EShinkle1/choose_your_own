@@ -121,15 +121,15 @@ void dinner(Stats &stats, Backpack &backpack) {
 
 void bedtime(Stats &stats, Backpack &backpack) {
     double sleep_quality = 0;
-    if (backpack.count_of_item("Makeshift tent") > 0) {
+    if (backpack.item_quantity("Makeshift tent") > 0) {
         std::cout << "You set up your tent on a dry patch of ground. ";
         sleep_quality += 0.5;
-        if (backpack.count_of_item("Blanket") > 0) {
+        if (backpack.item_quantity("Blanket") > 0) {
             std::cout << "You curl up in your blanket and hope for a good night of rest.\n\n";
             sleep_quality += 0.2;
         }
     }
-    else if (backpack.count_of_item("Blanket") * backpack.count_of_item("Walking stick") > 0) {
+    else if (backpack.item_quantity("Blanket") * backpack.item_quantity("Walking stick") > 0) {
         std::cout << "You make a small shelter from use your blanket and walking stick.\n\n";
         sleep_quality += 0.4;
     }

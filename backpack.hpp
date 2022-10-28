@@ -15,33 +15,34 @@ class Stats;
 class Backpack 
 {
 private:
-    std::list<Item> items = { //capitalize first word only
-        Item("Food (1 day)", 1.5, 2.0, &eat_half_can_food, true),
-        Item("Makeshift tent", 0, 6.0, &null_function),
-        Item("First aid kit", 1, 0.5, &first_aid_kit, true),
-        Item("Change of clothes", 0, 2.0, &null_function),
-        Item("Blanket", 0, 3.0, &null_function), 
-        Item("Questionable healing potion", 1, 1.0, &healing_potion, true),
-        Item("Good luck rock", 1, 3.0, &null_function),
-        Item("Walking stick", 0, 3.0, &null_function)
-    };
+    std::map<std::string, Item> items =
+        {{"Food (1 day)", Item("Food (1 day)", 0, 2.0, &eat_half_can_food, true)},
+        {"Makeshift tent", Item("Makeshift tent", 0, 6.0, &null_function)},
+        {"First aid kit", Item("First aid kit", 0, 0.5, &first_aid_kit, true)},
+        {"Change of clothes", Item("Change of clothes", 0, 2.0, &null_function)},
+        {"Blanket", Item("Blanket", 0, 3.0, &null_function)},
+        {"Questionable healing potion", Item("Questionable healing potion", 1, 1.0, &healing_potion, true)},
+        {"Good luck rock", Item("Good luck rock", 0, 3.0, &null_function)},
+        {"Walking stick", Item("Walking stick", 0, 3.0, &null_function)}};
 
-    std::map<int, std::string> map_numbers_to_items(bool actionable_only = false);
-    std::map<std::string, int> map_items_to_numbers(bool actionable_only = false);
+    std::map<int, std::string> Backpack::map_numbers_to_items(bool actionable_only = false);
+    std::map<std::string, int> Backpack::map_items_to_numbers(bool actionable_only = false);
+
 
 
 public:
-    double count_of_item(std::string item_name);
-    void increase_item_count(std::string item_name, double quantity);
-    void set_item_count(std::string item_name, double quantity);
+    bool item_present(std::string item_name);
+    double item_quantity(std::string item_name);
+    void increase_item_quantity(std::string item_name, double amount);
+    void set_item_quantity(std::string item_name, double amount);
     void print_contents(std::map<std::string, int> items_to_numbers_map = {}, bool actionable_only = false);
-    void drop_items();
     double weight();
-    void initial_load();
-    void reset();
+    void drop_items();
     int number_of_items();
     int number_of_actionable_items();
+    void reset();
     std::string weight_status();
+    void initial_load();
     void item_action(std::string item_name, Stats &stats, Backpack &backpack);
     void select_item_for_action(Stats &stats, Backpack &backpack);
 

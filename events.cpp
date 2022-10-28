@@ -154,7 +154,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
                     std::cout << "The forest is still. As you begin heading west again, a cold breeze whisks leaves off the trees around you. You shiver and clutch your pack a bit tighter as you continue through the woods. \n\n";
                     pause();
                     std::cout << "Eventually, the trees start to thin. This seems like a good place to rest.\n\n";
-                    backpack.increase_item_count("Food (1 day)", 2);
+                    backpack.increase_item_quantity("Food (1 day)", 2);
                     stats.increaseMilesJourneyed(5, backpack);
                     stats.increaseLuck(-20);
                 }
@@ -224,7 +224,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
             std::cout << "Luckily, the mud is less than a foot deep and you are able to pull yourself up. You wipe off as much as you can and shiver as a breeze ruffles the leaves on the nearby trees.\n\n";
             pause();
 
-            if (backpack.count_of_item("Change of clothes") > 0) {
+            if (backpack.item_quantity("Change of clothes") > 0) {
                 std::cout << "You remember that you have extra clothes in your backpack.\n\n";
                 std::cout << "Use change of clothes?\n\n";
                 std::cout << "  A. Yes\n";
@@ -232,7 +232,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
                 int choice = letter_to_int(input_checker_char(2));
 
                 if (choice == 0) {
-                    backpack.increase_item_count("Change of clothes", -1);
+                    backpack.increase_item_quantity("Change of clothes", -1);
                     std::cout << "You feel much better!\n\n";
                     pause();
                 } else {
@@ -278,7 +278,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
             if (direction_response == 0) {
                 int climbing_ability = stats.getLuck(backpack) + stats.getHealth();
                 std::cout << "You decide to press forward. ";
-                if (backpack.count_of_item("Walking Stick") > 0) {
+                if (backpack.item_quantity("Walking Stick") > 0) {
                     std::cout << "Fortunately, you have a walking stick to aid your ascent. ";
                     climbing_ability += 50;
                 }
@@ -351,7 +351,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
 
                 pause();
 
-                if (backpack.count_of_item("Change of clothes") > 0) {
+                if (backpack.item_quantity("Change of clothes") > 0) {
                     std::cout << "You remember that you have extra clothes in your backpack.\n\n";
                     std::cout << "Use change of clothes?\n\n";
                     std::cout << "  A. Yes\n";
@@ -359,7 +359,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
                     int choice = letter_to_int(input_checker_char(2));
 
                     if (choice == 0) {
-                        backpack.increase_item_count("Change of clothes", -1);
+                        backpack.increase_item_quantity("Change of clothes", -1);
                         std::cout << "How nice it is to be dry again! You have earned yourself a rest.\n\n";
                         pause();
                     } else {
@@ -422,7 +422,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
                 pause();
 
                 stats.increaseFullness(-10);
-                backpack.increase_item_count("Food (1 day)", 2);
+                backpack.increase_item_quantity("Food (1 day)", 2);
             }
             else {
                 std::cout << "You grab an extra fruit and stash it in your backpack for later. Then you continue on your way.\n\n";
@@ -448,7 +448,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
             std::cout << "You turn to continue and notice three raccoons pressing their tiny heads into the opening of your backpack, which you had placed on the ground before approaching the stream.\n\n";
             pause();
 
-            if (backpack.count_of_item("Food (1 day)") == 0) {
+            if (backpack.item_quantity("Food (1 day)") == 0) {
                 std::cout << "You watch them quietly for a few seconds, clenching your fists in frustration.\n\n";
                 pause();
                 std::cout << "They seem to decide that there is nothing of interest in your pack, and scurry off as quietly as they arrived.\n\n";
@@ -479,8 +479,8 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
                 int response = letter_to_int(input_checker_char(choices.size()));
 
                 if (response == 0) {
-                    double initial_food_amount = backpack.count_of_item("Food (1 day)");
-                    backpack.increase_item_count("Food (1 day)", -2);
+                    double initial_food_amount = backpack.item_quantity("Food (1 day)");
+                    backpack.increase_item_quantity("Food (1 day)", -2);
 
                     //Choice
                     std::cout << "Do you\n\n";
@@ -498,7 +498,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
                         pause();
                         std::cout << "You notice one of the raccoons dropped a piece of your food along the way. You add it back to your pack.\n\n";
                         pause();
-                        backpack.increase_item_count("Food (1 day)", 0.5);
+                        backpack.increase_item_quantity("Food (1 day)", 0.5);
                     } 
                     else {
                         std::cout << "The raccoons have stopped a several yards away and seem to be examining the heisted food.\n\n";
@@ -547,7 +547,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
                         pause();
                         std::cout << "Ah, but wait! Close to your foot, you spot a dropped piece of your food!\n\n";
                         pause();
-                        backpack.increase_item_count("Food (1 day)", 0.5);
+                        backpack.increase_item_quantity("Food (1 day)", 0.5);
                     }
 
                     std::cout << "You suspect the raccoons must have stopped somewhere.\n\n";
@@ -582,7 +582,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
                         pause();
                         std::cout << "You step forward again and peer into the hole. Aha! You retrieve a piece of your food.\n\n";
                         pause();
-                        backpack.increase_item_count("Food (1 day)", 0.5);
+                        backpack.increase_item_quantity("Food (1 day)", 0.5);
                     }
 
                     std::cout << "The raccoons are still in the brush pile. You can hear them moving around inside. Is that the sound of chewing you hear?\n\n";
@@ -612,7 +612,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
                         pause();
                         stats.increaseHealth(-15);
 
-                        if (backpack.count_of_item("First aid kit") > 0) {
+                        if (backpack.item_quantity("First aid kit") > 0) {
                             std::cout << "Use first aid kit?\n\n";
                             std::vector<std::string> choices5 = {"Yes", "No"};
 
@@ -634,7 +634,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
                         pause();
                         std::cout << "After a few minutes, they scutter away. You gingerly reach your hand into the brush and after a moment of searching, find a piece of your lost food.\n\n";
                         pause();
-                        backpack.increase_item_count("Food (1 day)", 0.5);
+                        backpack.increase_item_quantity("Food (1 day)", 0.5);
                     }
 
                     std::cout << "It is time get back to the expedition.\n\n";
@@ -642,15 +642,15 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
 
 
                     //Conclusion
-                    if (backpack.count_of_item("Food (1 day)") >= initial_food_amount) {
+                    if (backpack.item_quantity("Food (1 day)") >= initial_food_amount) {
                         std::cout << "You retrieved all of your food!\n\n";
                         backpack.set_item_count("Food (1 day)", initial_food_amount);
                     }
-                    else if (backpack.count_of_item("Food (1 day)") + 0.5 == initial_food_amount &&
+                    else if (backpack.item_quantity("Food (1 day)") + 0.5 == initial_food_amount &&
                                 initial_food_amount > 1) {
                         std::cout << "You got back most of your food!";
                     }
-                    else if (backpack.count_of_item("Food (1 day)") == 0) {
+                    else if (backpack.item_quantity("Food (1 day)") == 0) {
                         std::cout << "What a wasted " << time_of_day << "!\n\n";
                     } 
                     else {
@@ -661,9 +661,9 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
                     pause();
                 }
                 else {
-                    backpack.increase_item_count("Food (1 day)", -2);
-                    std::cout << "You look in your pack. You have " << backpack.count_of_item("Food (1 day)");
-                    if (backpack.count_of_item("Food (1 day)") == 1) {std::cout << " day ";}
+                    backpack.increase_item_quantity("Food (1 day)", -2);
+                    std::cout << "You look in your pack. You have " << backpack.item_quantity("Food (1 day)");
+                    if (backpack.item_quantity("Food (1 day)") == 1) {std::cout << " day ";}
                     else {std::cout << " days ";}
                     std::cout << "worth of food remaining.\n\n";
                     pause();

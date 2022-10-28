@@ -13,7 +13,7 @@ int Stats::getFullness() {
     }
 int Stats::getLuck(Backpack backpack) {
     int backpack_luck = 0;
-    if (backpack.count_of_item("Good luck rock")) {backpack_luck += 30;}
+    if (backpack.item_quantity("Good luck rock")) {backpack_luck += 30;}
     return luck + backpack_luck;
     }
 int Stats::getDayNumber() {
@@ -52,7 +52,7 @@ void Stats::increaseMilesJourneyed(double amount, Backpack backpack) {
     else if (backpack.weight_status() == "heavy") {
         multiplier = 0.8;
     }
-    if (backpack.count_of_item("Walking stick") > 0) {
+    if (backpack.item_quantity("Walking stick") > 0) {
         multiplier *= 1.1;
     }
     miles_journeyed += multiplier * amount;
