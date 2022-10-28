@@ -12,7 +12,7 @@ class Events
 private:
     std::vector<int> Tier1 = {3, 6}; //worst
     std::vector<int> Tier2 = {2, 4};
-    std::vector<int> Tier3 = {1};
+    std::vector<int> Tier3 = {1, 7};
     std::vector<int> Tier4 = {0, 5}; //best
     std::vector<int>* choose_tier(Stats stats, Backpack backpack);
 public:

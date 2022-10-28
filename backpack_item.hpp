@@ -10,13 +10,14 @@ class Backpack;
 
 class Item {
 private:
-    std::string name;
+    const std::string name;
     double quantity;
-    double weight;
+    const double weight;
     double (*function)(Stats &stats, Backpack &backpack);
     bool actionable;
 public:
     Item(std::string new_name, double new_quantity, double new_weight, double (*new_function)(Stats &stats, Backpack &backpack), bool if_actionable = false);
+            
     std::string getName();
     double getQuantity();
     double getWeight();

@@ -3,10 +3,9 @@
 #include "stats.hpp"
 #include "backpack.hpp"
 
-Item::Item(std::string new_name, double new_quantity, double new_weight, double (*new_function)(Stats &stats, Backpack &backpack), bool if_actionable) {
-    name = new_name;
+Item::Item(std::string new_name, double new_quantity, double new_weight, double (*new_function)(Stats &stats, Backpack &backpack), bool if_actionable)
+    : weight(new_weight), name(new_name) {
     quantity = new_quantity;
-    weight = new_weight;
     function = new_function;
     actionable = if_actionable;
 }

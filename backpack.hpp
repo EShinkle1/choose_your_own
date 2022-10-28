@@ -6,6 +6,7 @@
 #include <vector>
 #include <map>
 #include <list>
+#include <unordered_map>
 #include "backpack_item.hpp"
 #include "item_actions.hpp"
 
