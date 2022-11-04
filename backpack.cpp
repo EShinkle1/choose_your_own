@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <map>
 #include <list>
 #include "backpack.hpp"
 #include "helpers.hpp"
@@ -11,7 +10,7 @@
 
 bool Backpack::item_present(std::string item_name) {
     if (!(items.count(item_name))) {return false;}
-    if (items[item_name].getQuantity() <= 0) {return false;} 
+    if (items.find(item_name)->second.getQuantity() <= 0) {return false;} 
     return true;
 }
 
@@ -37,7 +36,8 @@ int Backpack::number_of_actionable_items() {
 
 double Backpack::item_quantity(std::string item_name) {
     if (!item_present(item_name)) {return 0;}
-    else {return items[item_name].getQuantity();}
+    else {return items.find(item_name)->second.getQuantity();}
+    return 1;
 }
 
 void Backpack::increase_item_quantity(std::string item_name, double amount) {
@@ -46,7 +46,7 @@ void Backpack::increase_item_quantity(std::string item_name, double amount) {
         return;
     }
     else {
-        items[item_name].increaseQuantity(amount);
+        items.find(item_name)->second.increaseQuantity(amount);
         return;
     } 
 }
@@ -57,7 +57,7 @@ void Backpack::set_item_quantity(std::string item_name, double amount) {
         return;
     }
     else {
-        items[item_name].setQuantity(amount);
+        items.find(item_name)->second.setQuantity(amount);
         return;
     } 
 }
@@ -233,7 +233,7 @@ void Backpack::item_action(std::string item_name, Stats &stats, Backpack &backpa
         std::cout << "WARNING: There is no item by the name of " << item_name << ".\n\n";
         return;
     }
-    items[item_name].takeAction(stats, backpack);
+    items.find(item_name)->second.takeAction(stats, backpack);
 }
 
 void Backpack::select_item_for_action(Stats &stats, Backpack &backpack) {

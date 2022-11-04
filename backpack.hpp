@@ -8,25 +8,25 @@
 #include <list>
 #include <unordered_map>
 #include "backpack_item.hpp"
-#include "item_actions.hpp"
 
 class Stats;
-
 class Backpack 
 {
 private:
     std::map<std::string, Item> items =
-        {{"Food (1 day)", Item("Food (1 day)", 0, 2.0, &eat_half_can_food, true)},
-        {"Makeshift tent", Item("Makeshift tent", 0, 6.0, &null_function)},
+        {
+        {"Food (1 day)", Item("Food (1 day)", 0, 2.0, &eat_half_can_food, true)},
+        {"Makeshift tent", Item("Makeshift tent", 0, 6.0, &null_function, false)},
         {"First aid kit", Item("First aid kit", 0, 0.5, &first_aid_kit, true)},
-        {"Change of clothes", Item("Change of clothes", 0, 2.0, &null_function)},
-        {"Blanket", Item("Blanket", 0, 3.0, &null_function)},
+        {"Change of clothes", Item("Change of clothes", 0, 2.0, &null_function, false)},
+        {"Blanket", Item("Blanket", 0, 3.0, &null_function, false)},
         {"Questionable healing potion", Item("Questionable healing potion", 1, 1.0, &healing_potion, true)},
-        {"Good luck rock", Item("Good luck rock", 0, 3.0, &null_function)},
-        {"Walking stick", Item("Walking stick", 0, 3.0, &null_function)}};
+        {"Good luck rock", Item("Good luck rock", 0, 3.0, &null_function, false)},
+        {"Walking stick", Item("Walking stick", 0, 3.0, &null_function, false)}
+        };
 
-    std::map<int, std::string> Backpack::map_numbers_to_items(bool actionable_only = false);
-    std::map<std::string, int> Backpack::map_items_to_numbers(bool actionable_only = false);
+    std::map<int, std::string> map_numbers_to_items(bool actionable_only = false);
+    std::map<std::string, int> map_items_to_numbers(bool actionable_only = false);
 
 
 

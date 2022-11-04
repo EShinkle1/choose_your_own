@@ -1,0 +1,1 @@
+g++ -I. -I./events ./*.cpp ./events/*.cpp -o choose_your_own.exe
