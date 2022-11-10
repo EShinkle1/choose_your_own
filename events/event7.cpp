@@ -208,29 +208,19 @@ bool get_new_position(std::vector<int> &current_position) {
         if (current_position[1] == -1) {
             std::cout << "This is the exit of the tunnel system. Do you wish to exit?\n\n";
 
-            while (true) {
-                std::cout << "Please enter Y or N: ";
-                std::string response;
-                std::cin >> response;
-                std::cin.ignore(100,'\n');
-                if (response == "Y"){
-                    middle_dashes();
-                    std::cout << "\nYou exit the caves.\n\n";
-                    pause();
-                    return false;
-                } 
-                if (response == "N"){
-                    middle_dashes();
-                    std::cout << "You turn back around.\n\n";
-                    pause();
-                    current_position[1] = 1;
-                    current_position[2] = 0;
-                    return true;
-                }
-                std::cout << "Invalid input.\n";
+            std::string response = yes_or_no();
+            if (response == "Y") {
+                std::cout << "You exit the caves.\n\n";
+                pause();
+                return false;
+            } 
+            else {
+                std::cout << "You turn back around.\n\n";
+                pause();
+                current_position[1] = 1;
+                current_position[2] = 0;
+                return true;
             }
-            
-
         }
     }
     else if (current_position[2] == 3) {
@@ -249,35 +239,97 @@ bool seen_grassy_area = false;
 bool seen_fishing_spot = false;
 bool seen_shiny_rocks = false;
 bool seen_growling_animal = false;
+bool fought_growling_animal = false;
+bool added_cave_mushrooms = false;
 
-void position_happenings(std::vector<int> current_position) {
+void position_happenings(std::vector<int> current_position, Backpack &backpack, Stats &stats) {
     //Interesting locations
     if ((current_position[0] == 2 && current_position[1] == 4 && current_position[2] == 3) ||
         (current_position[0] == 3 && current_position[1] == 4 && current_position[2] == 1)) {
         if (!seen_shiny_rocks) {
-            std::cout << "You see the shiny rocks for the first time!\n\n";
             seen_shiny_rocks = true;
+            std::cout << "Something ahead captures your gaze. The light reflected from it seems brighter than the light from your candle.\n\n";
+            pause();
+            std::cout << "As you walk a bit closer, everything else seems to fall out of focus.\n\n";
+            pause();
+            std::cout << "The object of your gaze is a shimmering silver rock, sharply contrasted to the dull brown slab of rock into which it is firmly embedded.\n\n";
+            pause();
+            std::cout << "You gently touch the glittery rock. It feels almost soft, like how you imagine it would feel to touch a cloud.\n\n";
+            pause();
+            std::cout << "A shiver runs through your body. Odd...\n\n";
+            stats.increaseLuck(10);
+            
         }
         else {
-            std::cout << "You see the shiny_rocks again.\n\n";
+            std::cout << "You again pass by the sparkling metallic rock you discovered earlier.\n\n";
+            pause();
+            std::cout << "It captures your focus for a few moments until you are able to shake yourself loose.\n\n";
+            stats.increaseLuck(1);
         }
     }
     else if (current_position[0] == 1 && current_position[1] == 3) {
         if (!seen_cave_mushrooms) {
-            std::cout << "You see the cave mushrooms for the first time!\n\n";
             seen_cave_mushrooms = true;
+            std::cout << "The tunnel ends up ahead. It appears there is something on the ground.\n\n";
+            pause();
+            std::cout << "You walk closer to take a look. You see a patch of large, brown mushrooms.\n\n";
+            pause();
+            std::cout << "Would you gather some to add to your backpack as food?\n\n";
+            std::string response = yes_or_no();
+            if (response == "Y") {
+                std::cout << "You collect the best looking mushrooms and add them to your backpack.\n\n";
+                backpack.increase_item_quantity("Food (1 day)", 2);
+                std::cout << "The weight of your backpack is " << backpack.weight_status();
+                added_cave_mushrooms = true;
+            } else {
+                std::cout << "You leave the mushrooms as they are.\n\n";
+            }
+            
         }
         else {
-            std::cout << "You return to the cave with mushrooms.\n\n";
+            std::cout << "You return to the place you found mushrooms earlier.\n\n";
+            if (!added_cave_mushrooms) {
+                std::cout << "Would you gather some to add to your backpack as food?\n\n";
+                std::string response = yes_or_no();
+                if (response == "Y") {
+                    std::cout << "You collect the best looking mushrooms and add them to your backpack.\n\n";
+                    backpack.increase_item_quantity("Food (1 day)", 2);
+                    std::cout << "The weight of your backpack is " << backpack.weight_status() << ".\n\n";
+                    added_cave_mushrooms = true;
+                }
+                else {
+                    std::cout << "You leave the mushrooms as they are.\n\n";
+                }
+            }
         }
     }
     else if (current_position[0] == 2 && current_position[1] == 7) {
         if (!seen_growling_animal) {
-            std::cout << "You hear a growling animal ahead.\n\n";
             seen_growling_animal = true;
+            std::cout << "You freeze, thinking you saw something move up ahead. Surely it's just the exhaustion getting to you, right?.\n\n";
+            pause();
+            std::cout << "Of course, an encounter in a dark cave is something you'd rather avoid. You move only your eyes, searching for another indication of movement.\n\n";
+            pause();
+            std::cout << "You hear a low growl. You feel the muscles in your shoulders and chest tighten. It sounds to be coming from a create of substantial size.\n\n";
+            pause();
+
+            if (backpack.item_present("Skeleton's sword")) {
+                std::cout << "You do have the sword you retrieved from the skeleton. Do you want to attempt to fight the creature?\n\n";
+                std::string response = yes_or_no();
+                if (response == "Y") {
+                    std::cout << "WARNING: NOT IMPLEMENTED.\n\n";
+                } else {
+                    std::cout << "You back away as cautiously and quietly as you are able.\n\n";
+                }
+            } else {
+                std::cout << "You back away as cautiously and quietly as you are able.\n\n";
+            }
         }
         else {
-            std::cout << "The growling animal is still there.\n\n";
+            std::cout << "This is where you found the growling animal earlier.\n\n";
+            if (backpack.item_present("Skeleton's sword") && !fought_growling_animal) {
+
+            }
         }
     }
     else if (current_position[0] == 6 && current_position[1] == 5) {
@@ -373,7 +425,7 @@ void out_of_moves() {
 void event7(Backpack &backpack, Stats &stats, std::string time_of_day) {
 
     //To-do:
-    //* Expand mini-events
+    //* Expand mini-events (implement fighting growling creature)
     //* Maybe add descriptions to some of the passageways? Perhaps hints to what is ahead?
 
     //0 = North, 1 = East, 2 = South, 3 = West
@@ -393,7 +445,7 @@ void event7(Backpack &backpack, Stats &stats, std::string time_of_day) {
         
         cont = get_new_position(current_position);
         if (!cont) { break; }
-        position_happenings(current_position);
+        position_happenings(current_position, backpack, stats);
         if (i == 19) {
             out_of_moves();
         }

@@ -150,3 +150,18 @@ int input_checker_positive_int() {
     middle_dashes();
     return choice_int;
 }
+
+std::string yes_or_no() {
+    while (true) {
+        std::cout << "Enter Y or N: ";
+        std::string response;
+        std::cin >> response;
+        std::cin.ignore(100,'\n');
+        if (response == "Y" || response == "N") {
+            std::cout << "\n";
+            middle_dashes();
+            return response;
+        }
+        std::cout << "Invalid input.\n";
+    }
+}

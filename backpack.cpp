@@ -8,8 +8,13 @@
 #include "backpack_item.hpp"
 #include "stats.hpp"
 
-bool Backpack::item_present(std::string item_name) {
+bool Backpack::item_exists(std::string item_name) {
     if (!(items.count(item_name))) {return false;}
+    return true;
+}
+
+bool Backpack::item_present(std::string item_name) {
+    if (!(item_exists(item_name))) {return false;}
     if (items.find(item_name)->second.getQuantity() <= 0) {return false;} 
     return true;
 }
@@ -35,14 +40,14 @@ int Backpack::number_of_actionable_items() {
 }
 
 double Backpack::item_quantity(std::string item_name) {
-    if (!item_present(item_name)) {return 0;}
+    if (!item_exists(item_name)) {return 0;}
     else {return items.find(item_name)->second.getQuantity();}
     return 1;
 }
 
 void Backpack::increase_item_quantity(std::string item_name, double amount) {
-    if (!item_present(item_name)) {
-        std::cout << "WARNING: Item " << item_name << " not present.\n\n";
+    if (!item_exists(item_name)) {
+        std::cout << "WARNING: Item " << item_name << " does not exist.\n\n";
         return;
     }
     else {
@@ -53,7 +58,7 @@ void Backpack::increase_item_quantity(std::string item_name, double amount) {
 
 void Backpack::set_item_quantity(std::string item_name, double amount) {
     if (!item_present(item_name)) {
-        std::cout << "WARNING: Item " << item_name << " not present.\n\n";
+        std::cout << "WARNING: Item " << item_name << " does not exist.\n\n";
         return;
     }
     else {
@@ -229,8 +234,11 @@ void Backpack::initial_load() {
 }
 
 void Backpack::item_action(std::string item_name, Stats &stats, Backpack &backpack) {
-    if (!item_present(item_name)) {
+    if (!item_exists(item_name)) {
         std::cout << "WARNING: There is no item by the name of " << item_name << ".\n\n";
+        return;
+    } else if (!item_present(item_name)) {
+        std::cout << "WARNING: None of item " << item_name << "remaining in inventory.\n\n";
         return;
     }
     items.find(item_name)->second.takeAction(stats, backpack);

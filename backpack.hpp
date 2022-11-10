@@ -22,7 +22,8 @@ private:
         {"Blanket", Item("Blanket", 0, 3.0, &null_function, false)},
         {"Questionable healing potion", Item("Questionable healing potion", 1, 1.0, &healing_potion, true)},
         {"Good luck rock", Item("Good luck rock", 0, 3.0, &null_function, false)},
-        {"Walking stick", Item("Walking stick", 0, 3.0, &null_function, false)}
+        {"Walking stick", Item("Walking stick", 0, 3.0, &null_function, false)},
+        {"Skelton's sword", Item("Skeleton's sword", 0, 5.0, &null_function, false)}
         };
 
     std::map<int, std::string> map_numbers_to_items(bool actionable_only = false);
@@ -31,6 +32,7 @@ private:
 
 
 public:
+    bool item_exists(std::string item_name);
     bool item_present(std::string item_name);
     double item_quantity(std::string item_name);
     void increase_item_quantity(std::string item_name, double amount);
