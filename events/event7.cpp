@@ -363,13 +363,18 @@ void intro_text() {
     pause();
 }
 
+void out_of_moves() {
+    std::cout << "You realize you've been in the cave for quite some time. It would be best to get moving again.\n\n";
+    pause();
+    std::cout << "You make your way back to the entrance and step outside.\n\n";
+    pause();
+}
+
 void event7(Backpack &backpack, Stats &stats, std::string time_of_day) {
 
     //To-do:
     //* Expand mini-events
-    //* Make a leaving mechanic -- are you sure you want to exit?
     //* Maybe add descriptions to some of the passageways? Perhaps hints to what is ahead?
-    //* Event ending
 
     //0 = North, 1 = East, 2 = South, 3 = West
     // turn around = +2, right = +1, forward = 0, left = -1
@@ -382,13 +387,29 @@ void event7(Backpack &backpack, Stats &stats, std::string time_of_day) {
 
     bool cont = true;
 
-    for (int i = 0; i < 20; i++) {
+    int i = 0;
+
+    while (i < 20) {
         
         cont = get_new_position(current_position);
         if (!cont) { break; }
         position_happenings(current_position);
-
+        if (i == 19) {
+            out_of_moves();
+        }
+        i++;
     }
 
+    std::cout << "It's not quite as sunny as earlier. You set off, hoping to cover a bit of distance before ";
+    if (time_of_day == "morning") {
+        std::cout << "stopping for lunch.\n\n";
+    } else {
+        std::cout << "the sun sets.\n\n";
+    }
+    pause();
+
+    stats.increaseMilesJourneyed(5 + 0.5*(20 - i), backpack);
+
+    return;
 
 }
