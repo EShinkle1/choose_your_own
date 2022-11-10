@@ -97,9 +97,9 @@ void Backpack::print_contents(std::map<std::string, int> items_to_numbers_map, b
             std::cout << letter << ". " << it.second.getName() << ", " << it.second.getQuantity() << ", " << it.second.getWeight() << " lbs/each\n";
             i++;
         }
+    }
     std::cout << "\n";
     if (!actionable_only) {std::cout << "Total weight: " << weight() << " lbs\n\n";}
-    }
 }
 
 double Backpack::weight() {

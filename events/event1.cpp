@@ -54,7 +54,7 @@ void event1(Backpack &backpack, Stats &stats, std::string time_of_day) {
         int response = letter_to_int(input_checker_char(2));
 
         if (response == 1) {
-            std::cout << "You set down the sack of food and look around. There is dense forest in every direction. You head west once again, brushing branches and foliage out of your way as you go along. \n\n";
+            std::cout << "You set down the sack of food and look around. There is dense forest in every direction. You head west once again, brushing branches and foliage out of your way as you go along. \n";
             pause();
             std::cout << "Eventually, the trees start to thin. This seems like a good place to rest.\n\n";
             stats.increaseMilesJourneyed(5, backpack);

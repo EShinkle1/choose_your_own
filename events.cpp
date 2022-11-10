@@ -46,8 +46,8 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
     }
 
     int idx = rand() % size;
-    int event = tier[idx];
-    //int event = 1;
+    //int event = tier[idx];
+    int event = 7;
 
     tier.erase(tier.begin()+idx);
     

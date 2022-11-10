@@ -1,3 +1,5 @@
+#include <set>
+
 class Backpack;
 class Stats;
 
