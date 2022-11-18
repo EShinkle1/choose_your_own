@@ -32,7 +32,7 @@ bool InitialStore::take_item(char choice, double quantity) {
         } 
         else if (counts[i-1] < quantity) {
             std::cout << " available. No items added.\n\n";
-            pause();
+            pause0();
         }
         else {
             counts[i-1] -= quantity;

@@ -5,30 +5,30 @@
 //Tier 1, raccoons steal your food
 void event6(Backpack &backpack, Stats &stats, std::string time_of_day) {
     std::cout << "After walking for an hour or so, you spot a gentle stream. The water looks cool and clear.\n\n";
-    pause();
+    pause0();
     std::cout << "You stop for a moment to take a drink. You rinse your hands and face. How nice!\n\n";
     stats.increaseHealth(5);
-    pause();
+    pause0();
     std::cout << "You turn to continue and notice three raccoons pressing their tiny heads into the opening of your backpack, which you had placed on the ground before approaching the stream.\n\n";
-    pause();
+    pause0();
 
     if (backpack.item_quantity("Food (1 day)") == 0) {
         std::cout << "You watch them quietly for a few seconds, clenching your fists in frustration.\n\n";
-        pause();
+        pause0();
         std::cout << "They seem to decide that there is nothing of interest in your pack, and scurry off as quietly as they arrived.\n\n";
-        pause();
+        pause0();
         std::cout << "Feeling invigorated, you grab your sack and take off.\n\n";
-        pause();
+        pause0();
         std::cout << "You're able to cover a good distance before ";
         if (time_of_day == "morning") {std::cout << "midday";}
         else {std::cout << "evening";}
         std::cout << ".\n\n";
-        pause();
+        pause0();
         stats.increaseMilesJourneyed(12, backpack);
     }
     else {
         std::cout << "\"Nahhhhhh!\" you shout, and they scurry away.\n\n";
-        pause();
+        pause0();
         std::cout << "Unfortunately, you realize, they took off with some of your food in hand. Indeed, you check your sack and confirm that the little rascals thieved you.\n\n";
 
         //A choice
@@ -59,24 +59,24 @@ void event6(Backpack &backpack, Stats &stats, std::string time_of_day) {
 
             if (response == 0) {
                 std::cout << "You sprint towards them, and they speed away in fear.\n\n";
-                pause();
+                pause0();
                 std::cout << "You notice one of the raccoons dropped a piece of your food along the way. You add it back to your pack.\n\n";
-                pause();
+                pause0();
                 backpack.increase_item_quantity("Food (1 day)", 0.5);
             } 
             else {
                 std::cout << "The raccoons have stopped a several yards away and seem to be examining the heisted food.\n\n";
-                pause();
+                pause0();
                 std::cout << "You creep slowly towards them, placing your feet gently on the ground at each step.\n\n";
-                pause();
+                pause0();
                 std::cout << "Suddenly, one of the raccoons turns your way. You freeze.\n\n";
-                pause();
+                pause0();
                 std::cout << "It is too late. The raccoons scurry off into the forest.\n\n";
-                pause();
+                pause0();
             }
 
             std::cout << "You attempt to follow them.\n\n";
-            pause();
+            pause0();
 
 
             //Choice
@@ -92,25 +92,25 @@ void event6(Backpack &backpack, Stats &stats, std::string time_of_day) {
 
             if (response2 == 0) {
                 std::cout << "You run after the raccoons into the brush. You can fallen leaves crinkle under their feet as they run.\n\n";
-                pause();
+                pause0();
                 std::cout << "Unfortunately, they can hear you as well.\n\n";
-                pause();
+                pause0();
                 std::cout << "After a bit, their sounds cease. You stop to listen.\n\n";
-                pause();
+                pause0();
             }
             else {
                 std::cout << "You head towards the right, hoping you are fast enough to outrun them.\n\n";
-                pause();
+                pause0();
                 std::cout << "They seem to hear you, as you can tell they begin taking a more leftward trajectory.\n\n";
-                pause(); 
+                pause0(); 
                 std::cout << "You correct your path, still hoping to get out in front of them.\n\n";
-                pause();
+                pause0();
                 std::cout << "Suddenly, you lose their track. You stop and look around.\n\n";
-                pause();
+                pause0();
                 std::cout << "The raccoons are nowhere to be seen.\n\n";
-                pause();
+                pause0();
                 std::cout << "Ah, but wait! Close to your foot, you spot a dropped piece of your food!\n\n";
-                pause();
+                pause0();
                 backpack.increase_item_quantity("Food (1 day)", 0.5);
             }
 
@@ -129,30 +129,30 @@ void event6(Backpack &backpack, Stats &stats, std::string time_of_day) {
 
             if (response3 == 0) {
                 std::cout << "As you approach the tree, you hear some noise coming from inside.\n\n";
-                pause();
+                pause0();
                 std::cout << "A woodpecker pops its head out the hole and you realize you likely heard the sounds of a nest full of baby birds inside the tree.\n\n";
-                pause();
+                pause0();
                 std::cout << "You hear a sound coming from behind and turn quickly to see the raccoons dashing out of the hole in the ground into some brush nearby.\n\n";
-                pause();
+                pause0();
                 std::cout << "You sneakily walk that way.\n\n";
-                pause();
+                pause0();
             }
             else {
                 std::cout << "You approach the hole cautiously, debating whether it is safe to reach your hand inside.\n\n";
-                pause();
+                pause0();
                 std::cout << "Before you can decide, the three little bandits dash from the hole into some brush nearby.\n\n";
-                pause();
+                pause0();
                 std::cout << "You jump back in surprise!\n\n";
-                pause();
+                pause0();
                 std::cout << "You step forward again and peer into the hole. Aha! You retrieve a piece of your food.\n\n";
-                pause();
+                pause0();
                 backpack.increase_item_quantity("Food (1 day)", 0.5);
             }
 
             std::cout << "The raccoons are still in the brush pile. You can hear them moving around inside. Is that the sound of chewing you hear?\n\n";
-            pause();
+            pause0();
             std::cout << "You see a stick nearby.\n\n";
-            pause();
+            pause0();
 
             //Choice
             std::cout << "Do you\n\n";
@@ -167,13 +167,13 @@ void event6(Backpack &backpack, Stats &stats, std::string time_of_day) {
 
             if (response4 == 0) {
                 std::cout << "You can't let these furry rascals get away with this!\n\n";
-                pause();
+                pause0();
                 std::cout << "You prod the pile of leaves and debris with the stick, carefully at first, then more rigorously.\n\n";
-                pause();
+                pause0();
                 std::cout << "Attack!! One of the raccoons leaps at your face. Its sharp claws leave a set of lacerations across your left cheek.\n\n";
-                pause();
+                pause0();
                 std::cout << "Before you can retaliate, all three raccoons scutter away. You hang your head in defeat.\n\n";
-                pause();
+                pause0();
                 stats.increaseHealth(-15);
 
                 if (backpack.item_quantity("First aid kit") > 0) {
@@ -193,16 +193,16 @@ void event6(Backpack &backpack, Stats &stats, std::string time_of_day) {
             }
             else {
                 std::cout << "It's probably not a good idea to provoke the raccoons. You lean against a nearby tree to catch your breath.\n\n";
-                pause();
+                pause0();
                 std::cout << "You can still hear the trio rustling around in the pile of leaves and debris.\n\n";
-                pause();
+                pause0();
                 std::cout << "After a few minutes, they scutter away. You gingerly reach your hand into the brush and after a moment of searching, find a piece of your lost food.\n\n";
-                pause();
+                pause0();
                 backpack.increase_item_quantity("Food (1 day)", 0.5);
             }
 
             std::cout << "It is time get back to the expedition.\n\n";
-            pause();
+            pause0();
 
 
             //Conclusion
@@ -221,9 +221,9 @@ void event6(Backpack &backpack, Stats &stats, std::string time_of_day) {
             else {
                 std::cout << "At least you got back some of your food...\n\n";
             }
-            pause();
+            pause0();
             std::cout << "You return to the stream and rinse again. It's time for a break.\n\n";
-            pause();
+            pause0();
         }
         else {
             backpack.increase_item_quantity("Food (1 day)", -2);
@@ -231,13 +231,13 @@ void event6(Backpack &backpack, Stats &stats, std::string time_of_day) {
             if (backpack.item_quantity("Food (1 day)") == 1) {std::cout << " day ";}
             else {std::cout << " days ";}
             std::cout << "worth of food remaining.\n\n";
-            pause();
+            pause0();
             std::cout << "You sigh and continue on your way, cursing the raccoons under your breath.\n\n";
-            pause();
+            pause0();
             std::cout << "Fortunately, the path ahead is easy, and your irritation speeds your pace.\n\n";
-            pause();
+            pause0();
             std::cout << "You're able to cover a good distance before stopping for a rest.\n\n";
-            pause();
+            pause0();
             stats.increaseMilesJourneyed(12, backpack);
         }
     }

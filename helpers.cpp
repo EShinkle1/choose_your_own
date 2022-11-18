@@ -108,7 +108,7 @@ char input_checker_char(int num_options) {
     return choice;
 }
 
-void pause(bool dashes_following = true) {
+void pause0(bool dashes_following = true) {
     std::cout << "Press ENTER to continue... ";
     char trash[80]; 
     std::cin.getline(trash,80,'\n');

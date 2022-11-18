@@ -60,7 +60,7 @@ void new_day(Stats &stats, Backpack &backpack, Events &events) {
 
     std::cout << "The sun is rising. You pack up your things and set off.\n\n";
     stats.print_status();
-    pause();
+    pause0();
 
     events.get_event(stats, backpack, "morning");
 

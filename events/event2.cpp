@@ -23,22 +23,22 @@ void event2(Backpack &backpack, Stats &stats, std::string time_of_day) {
 
     if (response == 0) {
         std::cout << "You eat several handfuls of the berries. They are quite good. You continue your hike\n\n";
-        pause();
+        pause0();
         std::cout << "After walking for a bit, you begin to feel a bit dizzy and your stomach feels unsettled. Perhaps those berries weren't a good idea after all.\n\n";
-        pause();
+        pause0();
         std::cout << "You walk a bit further, but your stomach continues to tighten. Eventually you give up and sit down. \n\n";
-        pause();
+        pause0();
         std::cout << "You place your head in your hands and sit for a while. Eventually, you feel well enough to continue, but your sense of balance has yet to be restored...\n\n";
-        pause();
-        std::cout << "After a while, you pause to take a break.\n\n";
-        pause();
+        pause0();
+        std::cout << "After a while, you pause0 to take a break.\n\n";
+        pause0();
         stats.increaseHealth(-5);
         stats.increaseMilesJourneyed(5, backpack);
     } else {
         std::cout << "There is no time to waste. You keep moving. \n\n";
-        pause();
+        pause0();
         std::cout << "The terrain is very easy. You cover a good distance. Finally after many hours of walking, you decide it's time for a break. \n\n";
         stats.increaseMilesJourneyed(15, backpack);
-        pause();
+        pause0();
     }
 }

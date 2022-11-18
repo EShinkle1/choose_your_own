@@ -34,14 +34,14 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
 
     if (size == 0) {
         std::cout << "You proceed with your journey. You walk forward, left foot, right foot, left foot, right foot.\n\n";
-        pause();
+        pause0();
         std::cout << "Your eyelids feel heavy. You press ahead.\n\n";
-        pause();
+        pause0();
         std::cout << "You eventually stop and realize you've been walking for quite some time. You remember little from the walk and have no idea how much progress you've made.\n\n";
-        pause();
+        pause0();
         std::cout << "Maybe it's time for a break.\n\n";
         stats.increaseMilesJourneyed(5 + (rand() % 10), backpack);
-        pause();
+        pause0();
         return;
     }
 
@@ -57,7 +57,7 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
         //Journey is 100 miles long, average length covered during an event should be 10 miles.
         //Northern route has difficult terrain but fewer creatures.
         //Each event should end with finding a place to take a break. 
-        //Each outcome should end with two line breaks, followed by a pause().
+        //Each outcome should end with two line breaks, followed by a pause0().
 
         case 0: 
             event0(backpack, stats, time_of_day);

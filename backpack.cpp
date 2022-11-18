@@ -141,7 +141,7 @@ void Backpack::drop_items() {
         middle_dashes();
     }
     print_contents();
-    pause();
+    pause0();
 }
 
 std::string Backpack::weight_status() {
@@ -183,7 +183,7 @@ void Backpack::initial_load() {
                 cont = false;
                 done = false;
                 std::cout << "Backpack reset.\n\n";
-                pause();
+                pause0();
             } else {
                 // std::cout << "\n";
                 // print_line("-", (getWindowColumns() - 6) / 2, false);
@@ -196,9 +196,9 @@ void Backpack::initial_load() {
                     std::cout << "Item";
                     if (quantity > 1) {std::cout << "s";}
                     std::cout << " added to backpack.\n\n";
-                    pause();
+                    pause0();
                     print_contents();
-                    pause();
+                    pause0();
                 }
             }
         }
@@ -230,7 +230,7 @@ void Backpack::initial_load() {
         std::cout << "It is heavy. Your shoulders are already starting to feel sore.\n";
     }
     std::cout << "\n";
-    pause(false);
+    pause0(false);
 }
 
 void Backpack::item_action(std::string item_name, Stats &stats, Backpack &backpack) {

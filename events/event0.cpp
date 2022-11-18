@@ -25,15 +25,15 @@ void event0(Backpack &backpack, Stats &stats, std::string time_of_day) {
         std::cout << "You eat several handfuls of the berries. They are quite good. You continue your hike. ";
         stats.increaseFullness(15);
         std::cout << "\n\n";
-        pause();
+        pause0();
         std::cout << "The terrain ahead is very easy. You cover a good distance. Finally after many hours of walking, you decide it's time for a break. \n\n";
         stats.increaseMilesJourneyed(12, backpack);
     } else {
         std::cout << "There is no time to waste. You keep moving. \n\n";
-        pause();
+        pause0();
         std::cout << "The terrain ahead is very easy. You cover a good distance. Finally after many hours of walking, you decide it's time for a break. \n\n";
         stats.increaseMilesJourneyed(15, backpack);
     }
 
-    pause();
+    pause0();
 }

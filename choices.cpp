@@ -35,7 +35,7 @@ void check_in(Stats &stats, Backpack &backpack, std::string time) {
 
         if (response == 0) {
             backpack.print_contents();
-            pause();
+            pause0();
         }
         else if (response == 1) {
             backpack.drop_items();
@@ -47,7 +47,7 @@ void check_in(Stats &stats, Backpack &backpack, std::string time) {
             stats.print_health_status();
             std::cout << "Your backpack is " << backpack.weight_status() << ".\n";
             stats.print_fullness_status();
-            pause();
+            pause0();
         }
         else {
             finished = true;
@@ -64,7 +64,7 @@ void lunch(Stats &stats, Backpack &backpack) {
     std::cout << "Your backpack is " << backpack.weight_status() << ".\n";
     stats.print_fullness_status();
 
-    pause();
+    pause0();
 
     check_in(stats, backpack, "day");
 
@@ -84,7 +84,7 @@ void lunch(Stats &stats, Backpack &backpack) {
 
     stats.check_for_death();
 
-    pause();
+    pause0();
 }
 
 void dinner(Stats &stats, Backpack &backpack) {
@@ -96,7 +96,7 @@ void dinner(Stats &stats, Backpack &backpack) {
     std::cout << "Your backpack is " << backpack.weight_status() << ".\n";
     stats.print_fullness_status();
 
-    pause();
+    pause0();
 
     check_in(stats, backpack, "night");
 
@@ -116,7 +116,7 @@ void dinner(Stats &stats, Backpack &backpack) {
 
     stats.check_for_death();
 
-    pause();
+    pause0();
 }
 
 void bedtime(Stats &stats, Backpack &backpack) {
@@ -137,7 +137,7 @@ void bedtime(Stats &stats, Backpack &backpack) {
         std::cout << "You sit with your back up against a tree and close your eyes.\n\n";
     }
 
-    pause();
+    pause0();
 
     double night_conditions = (rand() % 200 + stats.getLuck(backpack)) / 100.0 - 1;
     stats.increaseHealth(10 * (sleep_quality + night_conditions));
@@ -159,7 +159,7 @@ void bedtime(Stats &stats, Backpack &backpack) {
     }
 
     stats.check_for_death();
-    pause(false);
+    pause0(false);
 }
 
 
