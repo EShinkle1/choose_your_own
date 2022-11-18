@@ -47,7 +47,7 @@ double Backpack::item_quantity(std::string item_name) {
 
 void Backpack::increase_item_quantity(std::string item_name, double amount) {
     if (!item_exists(item_name)) {
-        std::cout << "WARNING: Item " << item_name << " does not exist.\n\n";
+        print_nice("WARNING: Item " + item_name + " does not exist.\n\n");
         return;
     }
     else {
@@ -58,7 +58,7 @@ void Backpack::increase_item_quantity(std::string item_name, double amount) {
 
 void Backpack::set_item_quantity(std::string item_name, double amount) {
     if (!item_present(item_name)) {
-        std::cout << "WARNING: Item " << item_name << " does not exist.\n\n";
+        print_nice("WARNING: Item " + item_name + " does not exist.\n\n");
         return;
     }
     else {
@@ -92,19 +92,19 @@ std::map<std::string, int> Backpack::map_items_to_numbers(bool actionable_only) 
 }
 
 void Backpack::print_contents(std::map<std::string, int> items_to_numbers_map, bool actionable_only) {
-    std::cout << "Backpack contents:\n";
+    print_nice("Backpack contents:\n");
     int i = 0;
     for (auto it: items) {
         if (it.second.getQuantity() > 0 && (!actionable_only || it.second.is_actionable())) {
             char letter;
             if (items_to_numbers_map.size() == 0) {letter = int_to_letter(i);}
             else {letter = int_to_letter(items_to_numbers_map[it.second.getName()]);}
-            std::cout << letter << ". " << it.second.getName() << ", " << it.second.getQuantity() << ", " << it.second.getWeight() << " lbs/each\n";
+            print_nice(std::string(1, letter) + ". " + it.second.getName() + ", " + double_to_nice_string(it.second.getQuantity()) + ", " + double_to_nice_string(it.second.getWeight()) + " lbs/each\n");
             i++;
         }
     }
-    std::cout << "\n";
-    if (!actionable_only) {std::cout << "Total weight: " << weight() << " lbs\n\n";}
+    print_nice("\n");
+    if (!actionable_only) {print_nice("Total weight: " + double_to_nice_string(weight()) + " lbs\n\n");}
 }
 
 double Backpack::weight() {
@@ -120,10 +120,10 @@ void Backpack::drop_items() {
     std::map<std::string, int> items_to_numbers_map = map_items_to_numbers();
     int num_items = number_of_items();
     while (true) {
-        std::cout << "What would you like to drop?\n";
-        std::cout << "One unit of the item will be dropped.\n\n";
+        print_nice("What would you like to drop?\n");
+        print_nice("One unit of the item will be dropped.\n\n");
         print_contents(items_to_numbers_map);
-        std::cout << int_to_letter(num_items) << ". Cancel\n\n";
+        print_nice(int_to_letter(num_items) + ". Cancel\n\n");
         char choice = input_checker_char(num_items+1);
         if (letter_to_int(choice) == num_items) {
             return;
@@ -132,10 +132,10 @@ void Backpack::drop_items() {
         
         if (item_present(item_name)) {
             increase_item_quantity(item_name, -1);
-            std::cout << "\nDropped 1 of item '" << item_name << "'\n";
+            print_nice("\nDropped 1 of item '" + item_name + "'\n");
         } 
         else {
-            std::cout << "\nNone of item remaining.\n";
+            print_nice("\nNone of item remaining.\n");
         }
 
         middle_dashes();
@@ -182,20 +182,20 @@ void Backpack::initial_load() {
             } else if (choice == 'J') {
                 cont = false;
                 done = false;
-                std::cout << "Backpack reset.\n\n";
+                print_nice("Backpack reset.\n\n");
                 pause0();
             } else {
-                // std::cout << "\n";
+                // print_nice("\n");
                 // print_line("-", (getWindowColumns() - 6) / 2, false);
-                // std::cout << "RESULT";
+                // print_nice("RESULT");
                 //  print_line("-", (getWindowColumns() - 6) / 2, true);
-                std::cout << "How many would you like to add?\n\n";
+                print_nice("How many would you like to add?\n\n");
                 double quantity = input_checker_positive_int();
                 if (initial_store.take_item(choice, quantity)) {
                     increase_item_quantity(initial_store.item_name(choice), quantity);
-                    std::cout << "Item";
-                    if (quantity > 1) {std::cout << "s";}
-                    std::cout << " added to backpack.\n\n";
+                    print_nice("Item");
+                    if (quantity > 1) {print_nice("s");}
+                    print_nice(" added to backpack.\n\n");
                     pause0();
                     print_contents();
                     pause0();
@@ -204,41 +204,41 @@ void Backpack::initial_load() {
         }
     }
 
-    std::cout << "\nYou are ready to begin your journey! You lift your back pack. ";
+    print_nice("\nYou are ready to begin your journey! You lift your back pack. ");
     if (weight() > 45) {
-        std::cout << "You pull your backpack over your shoulders and take a step forward. You immediately fall over. This backpack is too heavy to continue.\n";
+        print_nice("You pull your backpack over your shoulders and take a step forward. You immediately fall over. This backpack is too heavy to continue.\n");
         drop_items();
         bool heavy = (weight() > 45);
         while (heavy) {
-            std::cout << "\nThe backpack is still too heavy. Try to get to 45 lbs or less.\n";
+            print_nice("\nThe backpack is still too heavy. Try to get to 45 lbs or less.\n");
             drop_items();
             heavy = (weight() > 45);
         }
-        std::cout << "\nThat's better! You lift your backpack again. ";
+        print_nice("\nThat's better! You lift your backpack again. ");
         if (weight() <=15) {
-            std::cout << "It is now quite light. You can move quickly through the forest.\n";
+            print_nice("It is now quite light. You can move quickly through the forest.\n");
         } else if (weight() > 30) {
-            std::cout << "It is still quite heavy but at least you can carry it now.\n";
+            print_nice("It is still quite heavy but at least you can carry it now.\n");
         } else {
-            std::cout << "\n";
+            print_nice("\n");
         }
     } else if (weight() <= 15) {
-        std::cout << "It is light. You can move quickly through the forest.\n";
+        print_nice("It is light. You can move quickly through the forest.\n");
     } else if (weight() <= 30) {
-        std::cout << "\n";
+        print_nice("\n");
     } else {
-        std::cout << "It is heavy. Your shoulders are already starting to feel sore.\n";
+        print_nice("It is heavy. Your shoulders are already starting to feel sore.\n");
     }
-    std::cout << "\n";
+    print_nice("\n");
     pause0(false);
 }
 
 void Backpack::item_action(std::string item_name, Stats &stats, Backpack &backpack) {
     if (!item_exists(item_name)) {
-        std::cout << "WARNING: There is no item by the name of " << item_name << ".\n\n";
+        print_nice("WARNING: There is no item by the name of " + item_name + ".\n\n");
         return;
     } else if (!item_present(item_name)) {
-        std::cout << "WARNING: None of item " << item_name << "remaining in inventory.\n\n";
+        print_nice("WARNING: None of item " + item_name + "remaining in inventory.\n\n");
         return;
     }
     items.find(item_name)->second.takeAction(stats, backpack);
@@ -249,9 +249,9 @@ void Backpack::select_item_for_action(Stats &stats, Backpack &backpack) {
     std::map<std::string, int> items_to_numbers_map = map_items_to_numbers(true);
     int num_items = number_of_actionable_items();
     while (true) {
-        std::cout << "What would you like to use?\n\n";
+        print_nice("What would you like to use?\n\n");
         print_contents(items_to_numbers_map, true);
-        std::cout << int_to_letter(num_items) << ". Cancel\n\n";
+        print_nice(std::string(1, int_to_letter(num_items)) + ". Cancel\n\n");
         char choice = input_checker_char(num_items+1);
         if (letter_to_int(choice) == num_items) {
             return;

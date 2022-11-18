@@ -2,6 +2,7 @@
 #include "backpack_item.hpp"
 #include "stats.hpp"
 #include "backpack.hpp"
+#include "helpers.hpp"
 
 Item::Item(std::string new_name, double new_quantity, double new_weight, double (*new_function)(Stats &stats, Backpack &backpack), bool if_actionable)
     : weight(new_weight), name(new_name) {
@@ -12,7 +13,7 @@ Item::Item(std::string new_name, double new_quantity, double new_weight, double 
 
 void Item::takeAction(Stats &stats, Backpack &backpack) {
     if (quantity == 0) {
-        std::cout << "WARNING: None of the item " << name << " remains\n\n";
+        print_nice("WARNING: None of the item " + name + " remains\n\n");
         return;
     }
     quantity += function(stats, backpack);

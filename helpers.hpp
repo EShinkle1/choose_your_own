@@ -15,5 +15,6 @@ int getWindowRows();
 void middle_dashes();
 std::string yes_or_no();
 void print_nice(std::string str);
+std::string double_to_nice_string(double dbl);
 
 #endif

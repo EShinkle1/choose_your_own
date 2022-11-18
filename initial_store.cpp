@@ -6,19 +6,19 @@
 #include "helpers.hpp"
 
 void InitialStore::print_inventory_options() {
-        std::cout << "Choose equipment for your journey.\n\n";
-        std::cout << "   Item                             Weight       Quantity Available\n";
-        std::cout << "-------------------------------------------------------------------\n";
-        std::cout << "A. Food (1 day)                     2 lbs        unlimited\n";
-        std::cout << "B. Makeshift tent                   6 lbs        " << counts[0] << "\n";
-        std::cout << "C. First aid kit                    0.5 lbs      " << counts[1] << "\n";
-        std::cout << "D. Change of clothes                2 lbs        " << counts[2] << "\n";
-        std::cout << "E. Blanket                          3 lbs        " << counts[3] << "\n";
-        std::cout << "F. Questionable healing potion      1 lbs        " << counts[4] << "\n";
-        std::cout << "G. Good luck rock                   3 lbs        " << counts[5] << "\n";
-        std::cout << "H. Walking stick                    3 lbs        " << counts[6] << "\n\n";
-        std::cout << "I. Finished packing\n";
-        std::cout << "J. Restart\n\n";
+        print_nice("Choose equipment for your journey.\n\n");
+        print_nice("   Item                             Weight       Quantity Available\n");
+        print_nice("-------------------------------------------------------------------\n");
+        print_nice("A. Food (1 day)                     2 lbs        unlimited\n");
+        print_nice("B. Makeshift tent                   6 lbs        " + double_to_nice_string(counts[0]) + "\n");
+        print_nice("C. First aid kit                    0.5 lbs      " + double_to_nice_string(counts[1]) + "\n");
+        print_nice("D. Change of clothes                2 lbs        " + double_to_nice_string(counts[2]) + "\n");
+        print_nice("E. Blanket                          3 lbs        " + double_to_nice_string(counts[3]) + "\n");
+        print_nice("F. Questionable healing potion      1 lbs        " + double_to_nice_string(counts[4]) + "\n");
+        print_nice("G. Good luck rock                   3 lbs        " + double_to_nice_string(counts[5]) + "\n");
+        print_nice("H. Walking stick                    3 lbs        " + double_to_nice_string(counts[6]) + "\n\n");
+        print_nice("I. Finished packing\n");
+        print_nice("J. Restart\n\n");
 }
 
 bool InitialStore::take_item(char choice, double quantity) {
@@ -28,10 +28,10 @@ bool InitialStore::take_item(char choice, double quantity) {
         success = true;
     } else {
         if (counts[i-1] < 1) {
-            std::cout << "No more available.\n";
+            print_nice("No more available.\n");
         } 
         else if (counts[i-1] < quantity) {
-            std::cout << " available. No items added.\n\n";
+            print_nice("Only " + double_to_nice_string(quantity) + " available. No items added.\n\n");
             pause0();
         }
         else {

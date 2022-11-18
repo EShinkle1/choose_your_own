@@ -79,34 +79,75 @@ void print_nice(std::string str) {
     declare_window_length();
     int win_len = getWindowColumns();
     int line_len = 0;
-    bool first_line = true;
+    bool skip_space = true;
+    bool check_leading_space = true;
     std::string word;
 
-    for (auto ch : str) {
-        if (!(ch == ' ')) {
+    int N = str.size();
+
+    for (int i = 0; i < N; i++) {
+        char ch = str[i];
+        if (check_leading_space) {
+            if (ch == ' ') {
+                std::cout << " ";
+                continue;
+            }
+            else {
+                check_leading_space = false;
+            } 
+        }
+        if (!(ch == ' ' || ch == '\n')) {
             word.append(std::string(1,ch));
         } else {
-            if (line_len + word.size() + 1 > win_len) {
-                std::cout << std::endl;
-                std::cout << word;
-                line_len = word.size();
-            } else {
-                if (first_line) {
-                    std::cout << word;
-                    first_line = false;
-                    line_len += word.size();
+            if (ch == '\n') {
+                if (skip_space) {
+                    std::cout << word << "\n";
                 } else {
-                    std::cout << " " << word;
-                    line_len += word.size() + 1;
+                    std::cout << " " << word << "\n";
                 }
-                
+                line_len = 0;
+                word = "";
+                skip_space = true;
+            }
+            else {
+                if (line_len + word.size() + 1 > win_len) {
+                    std::cout << std::endl;
+                    std::cout << word;
+                    line_len = word.size();
+                } 
+                else {
+                    if (skip_space) {
+                        std::cout << word;
+                        skip_space = false;
+                        line_len += word.size();
+                    } else {
+                        std::cout << " " << word;
+                        line_len += word.size() + 1;
+                    }
+                }
+                if (i == N - 1 && ch == ' ') {std::cout << " ";}
             }
             word = "";
         }
+        if (i == N - 1) {std::cout << word;}
     }
 }
 
-
+std::string double_to_nice_string(double dbl) {
+    std::string str = std::to_string(dbl);
+    bool past_decimal = false;
+    int str_len;
+    for (int i = 0; i < str.size(); i++) {
+        if (past_decimal && str[i] != '0') {
+            str_len = i + 1;
+        }
+        if (str[i] == '.') {
+            str_len = i;
+            past_decimal = true;
+        }
+    }
+    return str.substr(0,str_len);
+}
 
 
 void print_line(const char* sym, int length = -1, bool new_line = true){
@@ -127,26 +168,26 @@ char input_checker_char(int num_options) {
     char choice;
     bool accepted = false;
     while (!accepted) {
-        std::cout << "Enter an option from A - " << int_to_letter(num_options - 1) << ": ";
+        print_nice("Enter an option from A - " + std::string(1, int_to_letter(num_options - 1)) + ": ");
         std::cin >> choice;
         //choice = std::getchar(); // >> choice;
         std::cin.ignore(100,'\n');
         if (letter_to_int(choice) >= num_options) {
-            std::cout << "Invalid input. Try again.\n";
+            print_nice("Invalid input. Try again.\n");
         } else {
             accepted = true;
         }
     }
-    std::cout << "\n";
+    print_nice("\n");
     middle_dashes();
     return choice;
 }
 
 void pause0(bool dashes_following = true) {
-    std::cout << "Press ENTER to continue... ";
+    print_nice("Press ENTER to continue... ");
     char trash[80]; 
     std::cin.getline(trash,80,'\n');
-    std::cout << "\n";
+    print_nice("\n");
     if (dashes_following) {middle_dashes();}
 }
 
@@ -164,7 +205,7 @@ int input_checker_positive_int() {
     bool accepted = false;
     int choice_int;
     while (!accepted) {
-        std::cout << "Enter a positive integer: ";
+        print_nice("Enter a positive integer: ");
         std::cin >> choice;
         //choice = std::getchar(); // >> choice;
         std::cin.ignore(100,'\n');
@@ -174,13 +215,13 @@ int input_checker_positive_int() {
                 accepted = true;
             }
             else {
-                std::cout << "Not a positive integer. Try again.\n";
+                print_nice("Not a positive integer. Try again.\n");
             }
         } else {
-            std::cout << "Invalid input. Try again.\n";
+            print_nice("Invalid input. Try again.\n");
         }
     }
-    std::cout << "\n";
+    print_nice("\n");
     middle_dashes();
     return choice_int;
 }
@@ -188,15 +229,15 @@ int input_checker_positive_int() {
 std::string yes_or_no() {
     //Returns "Y" or "N" as a string
     while (true) {
-        std::cout << "Enter Y or N: ";
+        print_nice("Enter Y or N: ");
         std::string response;
         std::cin >> response;
         std::cin.ignore(100,'\n');
         if (response == "Y" || response == "N") {
-            std::cout << "\n";
+            print_nice("\n");
             middle_dashes();
             return response;
         }
-        std::cout << "Invalid input.\n";
+        print_nice("Invalid input.\n");
     }
 }

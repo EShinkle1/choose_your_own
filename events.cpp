@@ -34,13 +34,13 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
     int size = tier.size();
 
     if (size == 0) {
-        std::cout << "You proceed with your journey. You walk forward, left foot, right foot, left foot, right foot.\n\n";
+        print_nice("You proceed with your journey. You walk forward, left foot, right foot, left foot, right foot.\n\n");
         pause0();
-        std::cout << "Your eyelids feel heavy. You press ahead.\n\n";
+        print_nice("Your eyelids feel heavy. You press ahead.\n\n");
         pause0();
-        std::cout << "You eventually stop and realize you've been walking for quite some time. You remember little from the walk and have no idea how much progress you've made.\n\n";
+        print_nice("You eventually stop and realize you've been walking for quite some time. You remember little from the walk and have no idea how much progress you've made.\n\n");
         pause0();
-        std::cout << "Maybe it's time for a break.\n\n";
+        print_nice("Maybe it's time for a break.\n\n");
         stats.increaseMilesJourneyed(5 + (rand() % 10), backpack);
         pause0();
         return;

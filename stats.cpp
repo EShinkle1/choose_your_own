@@ -1,6 +1,7 @@
 #include "stats.hpp"
 #include "text_blocks.hpp"
 #include "backpack.hpp"
+#include "helpers.hpp"
 #include <iostream>
 
 class Backpack;
@@ -32,7 +33,7 @@ void Stats::increaseFullness(int amount) {
     fullness += amount;
     if (fullness >= 99) {
         fullness = 99;
-        std::cout << "You are full. You cannot eat any more. ";
+        print_nice("You are full. You cannot eat any more. ");
     }
     if (fullness < 0) {
         fullness = 0;
@@ -66,7 +67,7 @@ void Stats::print_health_status() {
     else if (health < 75) {health_status = "fair";}
     else {health_status = "good";}
 
-    std::cout << "Your health is " << health_status << ".\n";
+    print_nice("Your health is " + health_status + ".\n");
 }
 
 void Stats::print_fullness_status() {
@@ -76,10 +77,8 @@ void Stats::print_fullness_status() {
     else if (fullness < 50) {fullness_status = "Your stomach is grumbling. You should probably eat something soon.";}
     else if (fullness < 75) {fullness_status = "You are a bit hungry. Some food would be nice.";}
     else {fullness_status = "Your stomach feels content.";}
-
-    // std::cout << "It is day " << day_number + 1 << " of your journey.\n";
     
-    std::cout << fullness_status << "\n\n";
+    print_nice(fullness_status + "\n\n");
 }
 void Stats::print_status() {
     print_health_status();

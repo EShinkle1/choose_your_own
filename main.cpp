@@ -20,7 +20,7 @@ int main() {
 
     declare_window_length();
 
-    //print_intro();
+    print_intro();
 
     Stats stats;
     Backpack backpack;
@@ -30,7 +30,7 @@ int main() {
 
     // // int route = choose_route(stats); //not implemented
 
-    //backpack.initial_load();
+    backpack.initial_load();
 
     // stats.increaseFullness(-1 * (rand() % 100));
     // stats.increaseHealth(-1 * (rand() % 100));

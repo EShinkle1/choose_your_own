@@ -8,29 +8,29 @@
 
 void day_header(Stats stats) {
     int length = (getWindowColumns() - 5)/ 2;
-    std::cout << "\n";
+    print_nice("\n");
     print_line("=");
     print_line(" ", length, false);
-    std::cout << "DAY " << stats.getDayNumber() << "\n";
+    print_nice("DAY " + double_to_nice_string(stats.getDayNumber()) + "\n");
     print_line("=");
-    std::cout << "\n";    
+    print_nice("\n");    
 }
 
 void wake_up_text(Stats &stats) {
 
-    std::cout << "You awake from your sleep. ";
+    print_nice("You awake from your sleep. ");
 
     //determine sleep quality
     int sleep_qual = rand() % 3; //0 worst, 2 best
     if (sleep_qual == 0) {
-        std::cout << "You slept poorly.\n\n";
+        print_nice("You slept poorly.\n\n");
         if (stats.getHealth() > 10) {
             stats.increaseHealth(-10);
         }
     } else if (sleep_qual == 1) {
-        std::cout << "Your sleep was adequate.\n\n";
+        print_nice("Your sleep was adequate.\n\n");
     } else {
-        std::cout << "You slept well last night.\n\n";
+        print_nice("You slept well last night.\n\n");
         stats.increaseHealth(10);
     }
 }
@@ -58,7 +58,7 @@ void new_day(Stats &stats, Backpack &backpack, Events &events) {
 
     day_header(stats);
 
-    std::cout << "The sun is rising. You pack up your things and set off.\n\n";
+    print_nice("The sun is rising. You pack up your things and set off.\n\n");
     stats.print_status();
     pause0();
 
