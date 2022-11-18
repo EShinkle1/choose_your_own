@@ -3,4 +3,4 @@
 class Backpack;
 class Stats;
 
-void eventXXX(Backpack &backpack, Stats &stats, std::string time_of_day);
+void event8(Backpack &backpack, Stats &stats, std::string time_of_day);

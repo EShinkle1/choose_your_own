@@ -75,6 +75,40 @@ char int_to_letter(int number) {
     return letters[number];
 }
 
+void print_nice(std::string str) {
+    declare_window_length();
+    int win_len = getWindowColumns();
+    int line_len = 0;
+    bool first_line = true;
+    std::string word;
+
+    for (auto ch : str) {
+        if (!(ch == ' ')) {
+            word.append(std::string(1,ch));
+        } else {
+            if (line_len + word.size() + 1 > win_len) {
+                std::cout << std::endl;
+                std::cout << word;
+                line_len = word.size();
+            } else {
+                if (first_line) {
+                    std::cout << word;
+                    first_line = false;
+                    line_len += word.size();
+                } else {
+                    std::cout << " " << word;
+                    line_len += word.size() + 1;
+                }
+                
+            }
+            word = "";
+        }
+    }
+}
+
+
+
+
 void print_line(const char* sym, int length = -1, bool new_line = true){
     if (length == -1) {length = getWindowColumns();}
     for (int i=0; i < length; i++) {
@@ -152,6 +186,7 @@ int input_checker_positive_int() {
 }
 
 std::string yes_or_no() {
+    //Returns "Y" or "N" as a string
     while (true) {
         std::cout << "Enter Y or N: ";
         std::string response;

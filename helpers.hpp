@@ -14,5 +14,6 @@ int getWindowColumns();
 int getWindowRows();
 void middle_dashes();
 std::string yes_or_no();
+void print_nice(std::string str);
 
 #endif

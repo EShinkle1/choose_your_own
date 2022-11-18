@@ -4,6 +4,7 @@
 
 //Tier X, topic
 void eventXXX(Backpack &backpack, Stats &stats, std::string time_of_day) {
+                                                         // time_of_day = "morning" or "afternoon"
     //Intro text
 
 
