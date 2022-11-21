@@ -9,9 +9,9 @@
 class InitialStore 
 {
 private:
-    int counts[8] = {2, 4, 2, 2, 1, 1, 1, 1}; 
-    const std::vector<std::string> names = {"Food (1 day)", "Makeshift tent", "First aid kit", "Change of clothes", "Blanket", "Questionable Healing Potion", "Good luck rock", "Walking stick"};
-    const std::vector<double> weights = {2.0, 6.0, 0.5, 2.0, 3.0, 1.0, 3.0, 3.0};
+    int counts[8] = {1, 4, 2, 2, 1, 1, 1, 1}; 
+    const std::vector<std::string> names = {"Food (1 day)", "Makeshift tent", "First aid kit", "Change of clothes", "Blanket", "Questionable healing potion", "Good luck rock", "Walking stick", "Spear"};
+    const std::vector<double> weights = {2.0, 6.0, 0.5, 2.0, 3.0, 1.0, 3.0, 3.0, 1.0};
 
 public: 
     void print_inventory_options();

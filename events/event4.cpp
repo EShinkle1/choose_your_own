@@ -4,7 +4,7 @@
 
 //Tier 2, steep climb or long journey around hill
 void event4(Backpack &backpack, Stats &stats, std::string time_of_day) {
-    print_nice("As you walk along, you hear the characteristic croak of a frog. You pause0 for a moment and look around before returning on your way. \n\n");
+    print_nice("As you walk along, you hear the characteristic croak of a frog. You pause for a moment and look around before returning on your way. \n\n");
     pause0();
     print_nice("In a forest like this, there are critters everywhere. You wonder what sorts of creatures you have passed unknowingly already during your journey.\n\n") ;
     pause0();
@@ -88,7 +88,7 @@ void event4(Backpack &backpack, Stats &stats, std::string time_of_day) {
             pause0();
         } 
         else {
-            print_nice("Best to cut your losses, you decide. You pause0 for a moment and suddenly notice the sound of flowing water ahead. You decide to continue a bit further to check it out.\n\n");
+            print_nice("Best to cut your losses, you decide. You pause for a moment and suddenly notice the sound of flowing water ahead. You decide to continue a bit further to check it out.\n\n");
             pause0();
         } 
         print_nice("Indeed! After walking a bit further, you discover a stream of water, which has carved out a narrow passage through the hill.\n\n");

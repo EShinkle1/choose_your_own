@@ -3,7 +3,7 @@
 #include <helpers.hpp>
 
 //Tier X, topic
-void eventXXX(Backpack &backpack, Stats &stats, std::string time_of_day) {
+void event12(Backpack &backpack, Stats &stats, std::string time_of_day) {
                                                          // time_of_day = "morning" or "afternoon"
     //Intro text
 
@@ -17,7 +17,7 @@ void eventXXX(Backpack &backpack, Stats &stats, std::string time_of_day) {
     }
     print_nice("\n");
 
-    int response = letter_to_int(input_checker_char(2));
+    int response = letter_to_int(input_checker_char(choices.size()));
 
     if (response == 0) {
 

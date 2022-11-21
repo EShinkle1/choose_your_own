@@ -30,7 +30,7 @@ void event2(Backpack &backpack, Stats &stats, std::string time_of_day) {
         pause0();
         print_nice("You place your head in your hands and sit for a while. Eventually, you feel well enough to continue, but your sense of balance has yet to be restored...\n\n");
         pause0();
-        print_nice("After a while, you pause0 to take a break.\n\n");
+        print_nice("After a while, you pause to take a break.\n\n");
         pause0();
         stats.increaseHealth(-5);
         stats.increaseMilesJourneyed(5, backpack);

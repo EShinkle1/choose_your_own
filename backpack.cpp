@@ -123,7 +123,7 @@ void Backpack::drop_items() {
         print_nice("What would you like to drop?\n");
         print_nice("One unit of the item will be dropped.\n\n");
         print_contents(items_to_numbers_map);
-        print_nice(int_to_letter(num_items) + ". Cancel\n\n");
+        print_nice(std::string(1, int_to_letter(num_items)) + ". Cancel\n\n");
         char choice = input_checker_char(num_items+1);
         if (letter_to_int(choice) == num_items) {
             return;
@@ -132,16 +132,12 @@ void Backpack::drop_items() {
         
         if (item_present(item_name)) {
             increase_item_quantity(item_name, -1);
-            print_nice("\nDropped 1 of item '" + item_name + "'\n");
         } 
         else {
-            print_nice("\nNone of item remaining.\n");
+            print_nice("None of item remaining.\n\n");
+            pause0();
         }
-
-        middle_dashes();
     }
-    print_contents();
-    pause0();
 }
 
 std::string Backpack::weight_status() {
@@ -185,18 +181,10 @@ void Backpack::initial_load() {
                 print_nice("Backpack reset.\n\n");
                 pause0();
             } else {
-                // print_nice("\n");
-                // print_line("-", (getWindowColumns() - 6) / 2, false);
-                // print_nice("RESULT");
-                //  print_line("-", (getWindowColumns() - 6) / 2, true);
                 print_nice("How many would you like to add?\n\n");
                 double quantity = input_checker_positive_int();
                 if (initial_store.take_item(choice, quantity)) {
                     increase_item_quantity(initial_store.item_name(choice), quantity);
-                    print_nice("Item");
-                    if (quantity > 1) {print_nice("s");}
-                    print_nice(" added to backpack.\n\n");
-                    pause0();
                     print_contents();
                     pause0();
                 }

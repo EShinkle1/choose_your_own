@@ -14,6 +14,9 @@
 #include <event6.hpp>
 #include <event7.hpp>
 #include <event8.hpp>
+#include <event9_10_11.hpp>
+
+int statue_encounters = 0;
 
 std::vector<int> * Events::choose_tier(Stats stats, Backpack backpack) {
     int score = rand() % 200 + stats.getLuck(backpack);
@@ -47,8 +50,8 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
     }
 
     int idx = rand() % size;
-    //int event = tier[idx];
-    int event = 8;
+    int event = tier[idx];
+    //int event = 9;
 
     tier.erase(tier.begin()+idx);
     
@@ -87,6 +90,24 @@ void Events::get_event(Stats &stats, Backpack &backpack, std::string time_of_day
         case 8: 
             event8(backpack, stats, time_of_day);
             break;
+        case 9: 
+            event9_10_11(backpack, stats, time_of_day, 9, statue_encounters);
+            statue_encounters++;
+            break;
+        case 10: 
+            event9_10_11(backpack, stats, time_of_day, 10, statue_encounters);
+            statue_encounters++;
+            break;
+        case 11: 
+            event9_10_11(backpack, stats, time_of_day, 11, statue_encounters);
+            statue_encounters++;
+            break;
+        // case 12: 
+        //     event12(backpack, stats, time_of_day);
+        //     break;
+        // case 13: 
+        //     event13(backpack, stats, time_of_day);
+        //     break;
     }
 }
 

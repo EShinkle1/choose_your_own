@@ -45,7 +45,7 @@ void first_day(Stats &stats, Backpack &backpack, Events &events) {
 
     lunch(stats, backpack);
 
-    events.get_event(stats, backpack, "morning");
+    events.get_event(stats, backpack, "afternoon");
 
     dinner(stats, backpack);
 

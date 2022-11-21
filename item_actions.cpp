@@ -8,6 +8,7 @@
 double eat_half_can_food(Stats &stats, Backpack &backpack) {
     print_nice("You eat a half day's portion of food. ");
     stats.increaseFullness(25);
+    stats.print_fullness_status();
     print_nice("\n\n");
     pause0();
     return -0.5;

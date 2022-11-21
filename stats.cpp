@@ -33,7 +33,6 @@ void Stats::increaseFullness(int amount) {
     fullness += amount;
     if (fullness >= 99) {
         fullness = 99;
-        print_nice("You are full. You cannot eat any more. ");
     }
     if (fullness < 0) {
         fullness = 0;
@@ -73,10 +72,10 @@ void Stats::print_health_status() {
 void Stats::print_fullness_status() {
     std::string fullness_status;
     if (fullness < 10) {fullness_status = "Your hunger is excruciating. You feel light-headed and weak.";} 
-    else if (fullness < 25) {fullness_status = "Your stomach aches. You don't know how much longer you can handle this.";}
-    else if (fullness < 50) {fullness_status = "Your stomach is grumbling. You should probably eat something soon.";}
-    else if (fullness < 75) {fullness_status = "You are a bit hungry. Some food would be nice.";}
-    else {fullness_status = "Your stomach feels content.";}
+    else if (fullness < 25) {fullness_status = "Your stomach aches. You are very hungry.";}
+    else if (fullness < 50) {fullness_status = "Your stomach is grumbling. You're fairly hungry.";}
+    else if (fullness < 75) {fullness_status = "You are a bit hungry.";}
+    else {fullness_status = "You are full.";}
     
     print_nice(fullness_status + "\n\n");
 }

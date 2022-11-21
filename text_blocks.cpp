@@ -24,6 +24,7 @@ void first_day_journey() {
     print_nice("You look around momentarily, taking in the familiar sights of your village as if for the first time. This could be the last time you see them.\n\n");
     pause0();
     print_nice("No, no. That attitude won't help! You try to picture how the grand city will look, as you have done many times since first hearing the tale as a young child.\n\n");
+    pause0();
     print_nice("The city has never felt so close, nor so far away, as it does now.\n\n");
     pause0();
     print_nice("You enter the forest, taking note of the sights and smells. You played in these woods many times when you were younger, but you were never permitted to venture very far in.\n\n");

@@ -16,9 +16,10 @@ void InitialStore::print_inventory_options() {
         print_nice("E. Blanket                          3 lbs        " + double_to_nice_string(counts[3]) + "\n");
         print_nice("F. Questionable healing potion      1 lbs        " + double_to_nice_string(counts[4]) + "\n");
         print_nice("G. Good luck rock                   3 lbs        " + double_to_nice_string(counts[5]) + "\n");
-        print_nice("H. Walking stick                    3 lbs        " + double_to_nice_string(counts[6]) + "\n\n");
-        print_nice("I. Finished packing\n");
-        print_nice("J. Restart\n\n");
+        print_nice("H. Walking stick                    3 lbs        " + double_to_nice_string(counts[6]) + "\n");
+        print_nice("I. Spear                            4 lbs        " + double_to_nice_string(counts[7]) + "\n\n");
+        print_nice("J. Finished packing\n");
+        print_nice("K. Restart\n\n");
 }
 
 bool InitialStore::take_item(char choice, double quantity) {
@@ -31,7 +32,7 @@ bool InitialStore::take_item(char choice, double quantity) {
             print_nice("No more available.\n");
         } 
         else if (counts[i-1] < quantity) {
-            print_nice("Only " + double_to_nice_string(quantity) + " available. No items added.\n\n");
+            print_nice("Only " + double_to_nice_string(counts[i-1]) + " available. No items added.\n\n");
             pause0();
         }
         else {

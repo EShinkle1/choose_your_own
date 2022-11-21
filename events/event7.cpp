@@ -380,8 +380,7 @@ void position_happenings(std::vector<int> &current_position, Backpack &backpack,
             std::string response = yes_or_no();
             if (response == "Y") {
                 print_nice("You collect the best looking mushrooms and add them to your backpack.\n\n");
-                backpack.increase_item_quantity("Food (1 day)", 2);
-                print_nice("The weight of your backpack is " + backpack.weight_status() + "\n\n");
+                backpack.increase_item_quantity("Food (1 day)", 1);
                 taken_cave_mushrooms = true;
             } else {
                 print_nice("You leave the mushrooms as they are.\n\n");
@@ -462,7 +461,7 @@ void position_happenings(std::vector<int> &current_position, Backpack &backpack,
                     print_nice("It takes you a bit to get the hang of fishing with the spear, but you're able to catch two fish. You make a small fire and prepare the fish. Mmm...\n\n");
                     stats.increaseFullness(20);
                 } else if (fishing_counter == 2) {
-                    print_nice("There are more visible fish, so you decide to catch some more. After a bit of work, you've caught three fish! You pause0 to enjoy your catch.\n\n");
+                    print_nice("There are more visible fish, so you decide to catch some more. After a bit of work, you've caught three fish! You pause to enjoy your catch.\n\n");
                     stats.increaseFullness(30);
                 } else {
                     print_nice("You try for a bit, but have no success. If there are fish further down in the pond, they are evading your spear. Perhaps it is best to move on.\n\n");

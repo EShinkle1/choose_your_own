@@ -7,7 +7,7 @@ void event1(Backpack &backpack, Stats &stats, std::string time_of_day) {
     //Intro
     print_nice("You continue on your trek. The forest ahead is especially dense. \n\n");
     pause0();
-    print_nice("Fortunately, you spot a narrow path. It looks as though it is treaded on frequently. You pause0 to look around, but don't see anything except tree after tree.\n\n");
+    print_nice("Fortunately, you spot a narrow path. It looks as though it is treaded on frequently. You pause to look around, but don't see anything except tree after tree.\n\n");
     pause0();
     print_nice("You follow along the foot path for some time. Eventually it turns sharply to the right. It looks as though it continues in that direction for some time.\n\n");
 
@@ -28,7 +28,7 @@ void event1(Backpack &backpack, Stats &stats, std::string time_of_day) {
         pause0();
         print_nice("You walk for several hours, enjoying the sounds of birds chirping and the beams of sunlight peaking through the forest canopy. \n\n");
         pause0();
-        print_nice("As you stop to take a rest, you are reminded of the footpath you traveled along earlier. It's probably good that you didn't follow it any further -- who knows how long you could have been stuck following it.\n\n");
+        print_nice("As you stop to take a rest, you are reminded of the footpath you traveled along earlier. It's probably good that you didn't follow it any further -- who knows how long it could have distracted you.\n\n");
         stats.increaseHealth(10);
         stats.increaseMilesJourneyed(10, backpack);
     } else {

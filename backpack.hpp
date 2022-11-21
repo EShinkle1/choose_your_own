@@ -18,14 +18,15 @@ private:
         {"Food (1 day)", Item("Food (1 day)", 0, 2.0, &eat_half_can_food, true)},
         {"Makeshift tent", Item("Makeshift tent", 0, 6.0, &null_function, false)},
         {"First aid kit", Item("First aid kit", 0, 0.5, &first_aid_kit, true)},
-        {"Change of clothes", Item("Change of clothes", 1, 2.0, &null_function, false)},
-        {"Blanket", Item("Blanket", 1, 3.0, &null_function, false)},
-        {"Questionable healing potion", Item("Questionable healing potion", 1, 1.0, &healing_potion, true)},
+        {"Change of clothes", Item("Change of clothes", 0, 2.0, &null_function, false)},
+        {"Blanket", Item("Blanket", 0, 3.0, &null_function, false)},
+        {"Questionable healing potion", Item("Questionable healing potion", 0, 1.0, &healing_potion, true)},
         {"Good luck rock", Item("Good luck rock", 0, 3.0, &null_function, false)},
         {"Walking stick", Item("Walking stick", 0, 3.0, &null_function, false)},
         {"Skeleton's sword", Item("Skeleton's sword", 0, 5.0, &null_function, false)},
         {"Strange gold trinket", Item("Strange gold trinket", 0, 0.5, &null_function, false)},
-        {"Cave creature's skull", Item("Cave creature's skull", 0, 2.0, &null_function, false)}
+        {"Cave creature's skull", Item("Cave creature's skull", 0, 2.0, &null_function, false)},
+        {"Spear", Item("Spear", 0, 4.0, &null_function, false)}
         };
 
     std::map<int, std::string> map_numbers_to_items(bool actionable_only = false);

@@ -70,7 +70,6 @@ void lunch(Stats &stats, Backpack &backpack) {
 
     print_nice("You are ready to continue!\n\n");
 
-    stats.print_fullness_status();
     int fullness = stats.getFullness();
     if (fullness == 0) {
         stats.increaseHealth(-25);
@@ -102,7 +101,6 @@ void dinner(Stats &stats, Backpack &backpack) {
 
     print_nice("It is time to try to sleep.\n\n");
 
-    //stats.print_fullness_status();
     int fullness = stats.getFullness();
     if (fullness == 0) {
         stats.increaseHealth(-25);
@@ -125,18 +123,18 @@ void bedtime(Stats &stats, Backpack &backpack) {
         print_nice("You set up your tent on a dry patch of ground. ");
         sleep_quality += 0.5;
         if (backpack.item_quantity("Blanket") > 0) {
-            print_nice("You curl up in your blanket and hope for a good night of rest.\n\n");
+            print_nice("You curl up in your blanket and hope for a good night of rest.");
             sleep_quality += 0.2;
         }
     }
     else if (backpack.item_quantity("Blanket") * backpack.item_quantity("Walking stick") > 0) {
-        print_nice("You make a small shelter from use your blanket and walking stick.\n\n");
+        print_nice("You make a small shelter using your blanket and walking stick.");
         sleep_quality += 0.4;
     }
     else {
-        print_nice("You sit with your back up against a tree and close your eyes.\n\n");
+        print_nice("You sit with your back up against a tree and close your eyes.");
     }
-
+    print_nice("\n\n");
     pause0();
 
     double night_conditions = (rand() % 200 + stats.getLuck(backpack)) / 100.0 - 1;
